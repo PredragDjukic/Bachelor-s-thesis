@@ -5,6 +5,11 @@
       "ProjectGuid": "cbfa71d4-52c1-4b10-8cab-9626b4ba7b03",
       "DisplayName": "Diplomski.Presentation",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1
