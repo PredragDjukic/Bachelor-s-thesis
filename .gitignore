@@ -1,10 +1,10 @@
 /Server/Diplomski.Presentation/bin
 /Server/Diplomski.Presentation/obj
 
-/Server/Diplomski.BLL/obj
+/Server/Diplomski.BLL/bin
 /Server/Diplomski.BLL/obj
 
-/Server/Diplomski.DAL/obj
+/Server/Diplomski.DAL/bin
 /Server/Diplomski.DAL/obj
 
 /Database/Versions.txt
