@@ -1,47 +1,58 @@
 print('---DROPING TABLES---')
-drop table if exists [User]
 drop table if exists [Trainer]
 drop table if exists [Exerciser]
+drop table if exists [User]
 go
 
 print('---CREATE USER TABLE---')
 create table [User]
 (
 	Id int primary key identity,
-	FirstName nvarchar(50),
-	LastName nvarchar(50),
-	Email nvarchar(100),
-	Password nvarchar(64),
-	Username nvarchar(75),
-	PhoneNumber nvarchar(20),
-	Nationality nvarchar(40),
-	IsEmailVerified bit,
-	IsPhoneNumberVerified bit,
-	SecretCode nvarchar(6),
-	SecretCodeExpiry Date,
-	AreTermsAndServicesAccepted bit,
-	IsPrivacyPolicyAccepted bit,
-	DateOfBirth Date,
-	ProfilePhotoUrl nvarchar(255),
-	CreatedAt Date,
-	UpdatedAt Date
+	FirstName nvarchar(50) not null,
+	LastName nvarchar(50) not null,
+	Email nvarchar(100) not null,
+	Password nvarchar(64) not null,
+	Username nvarchar(75) not null,
+	PhoneNumber nvarchar(20) not null,
+	Nationality nvarchar(40) not null,
+	IsEmailVerified bit not null,
+	IsPhoneNumberVerified bit not null,
+	SecretCode nvarchar(6) not null,
+	SecretCodeExpiry Date not null,
+	AreTermsAndServicesAccepted bit not null,
+	IsPrivacyPolicyAccepted bit not null,
+	DateOfBirth Date not null,
+	ProfilePhotoUrl nvarchar(255) not null,
+	CreatedAt Date not null,
+	UpdatedAt Date not null
 )
+
+alter table [User] add constraint UC_User_Email unique (Email)
+alter table [User] add constraint UC_User_PhoneNumber unique (PhoneNumber)
 
 print('---CREATE TRAINER TABLE---')
 create table [Trainer]
 (
-	Bio nvarchar(1000),
-	Experience int,
+	Bio nvarchar(1000) not null,
+	Experience int not null,
+	UserId int not null
 );
+
+alter table [Trainer] add constraint FK_Trainer_User Foreign Key (UserId) references [User](Id) on delete cascade;
+alter table [Trainer] add constraint UC_Trainer_UserId unique (UserId)
 go
 
 print('---CREATE EXERCISER TABLE---')
 create table [Exerciser]
 (
-	ExerciseHistory int,
-	Goal int,
-	MessageForCoaches nvarchar(1000),
-	EmergencyContactFullName nvarchar(100),
-	EmergencyContactPhoneNumber nvarchar(20)
+	ExerciseHistory int not null,
+	Goal int not null,
+	MessageForCoaches nvarchar(1000) not null,
+	EmergencyContactFullName nvarchar(100) not null,
+	EmergencyContactPhoneNumber nvarchar(20) not null,
+	UserId int not null
 );
+
+alter table [Exerciser] add constraint FK_Exerciser_User Foreign Key (UserId) references [User](Id) on delete cascade;
+alter table [Exerciser] add constraint UC_Exerciser_UserId unique (UserId)
 go
