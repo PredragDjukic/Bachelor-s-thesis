@@ -4,10 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplomski.Presentation", "Diplomski.Presentation\Diplomski.Presentation.csproj", "{CBFA71D4-52C1-4B10-8CAB-9626B4BA7B03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{751D5D50-4CE2-439E-9A57-DDCEE4C4253E} = {751D5D50-4CE2-439E-9A57-DDCEE4C4253E}
+		{2CC2A35E-DE6E-44EE-80BD-CD178D7C3B73} = {2CC2A35E-DE6E-44EE-80BD-CD178D7C3B73}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplomski.DAL", "Diplomski.DAL\Diplomski.DAL.csproj", "{751D5D50-4CE2-439E-9A57-DDCEE4C4253E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplomski.BLL", "Diplomski.BLL\Diplomski.BLL.csproj", "{2CC2A35E-DE6E-44EE-80BD-CD178D7C3B73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{751D5D50-4CE2-439E-9A57-DDCEE4C4253E} = {751D5D50-4CE2-439E-9A57-DDCEE4C4253E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
