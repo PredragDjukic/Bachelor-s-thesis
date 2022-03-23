@@ -8,6 +8,7 @@ print('---CREATE USER TABLE---')
 create table [User]
 (
 	Id int primary key identity,
+	Role int not null,
 	FirstName nvarchar(50) not null,
 	LastName nvarchar(50) not null,
 	Email nvarchar(100) not null,
