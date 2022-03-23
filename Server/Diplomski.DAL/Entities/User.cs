@@ -6,6 +6,7 @@ namespace Diplomski.DAL.Entities
     public partial class User
     {
         public int Id { get; set; }
+        public int Role { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
@@ -23,5 +24,10 @@ namespace Diplomski.DAL.Entities
         public string ProfilePhotoUrl { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public int? TrainerId { get; set; }
+        public int? ExerciserId { get; set; }
+
+        public virtual Exerciser? Exerciser { get; set; }
+        public virtual Trainer? Trainer { get; set; }
     }
 }

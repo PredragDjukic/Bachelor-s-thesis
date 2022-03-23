@@ -5,6 +5,7 @@ namespace Diplomski.DAL.Entities
 {
     public partial class Exerciser
     {
+        public int Id { get; set; }
         public int ExerciseHistory { get; set; }
         public int Goal { get; set; }
         public string MessageForCoaches { get; set; } = null!;
@@ -12,6 +13,6 @@ namespace Diplomski.DAL.Entities
         public string EmergencyContactPhoneNumber { get; set; } = null!;
         public int UserId { get; set; }
 
-        public virtual User User { get; set; } = null!;
+        public virtual User? User { get; set; }
     }
 }

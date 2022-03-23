@@ -25,8 +25,6 @@ namespace Diplomski.DAL.Entities
         {
             modelBuilder.Entity<Exerciser>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasIndex(e => e.UserId, "UC_Exerciser_UserId")
                     .IsUnique();
 
@@ -35,26 +33,14 @@ namespace Diplomski.DAL.Entities
                 entity.Property(e => e.EmergencyContactPhoneNumber).HasMaxLength(20);
 
                 entity.Property(e => e.MessageForCoaches).HasMaxLength(1000);
-
-                entity.HasOne(d => d.User)
-                    .WithOne()
-                    .HasForeignKey<Exerciser>(d => d.UserId)
-                    .HasConstraintName("FK_Exerciser_User");
             });
 
             modelBuilder.Entity<Trainer>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.HasIndex(e => e.UserId, "UC_Trainer_UserId")
                     .IsUnique();
 
                 entity.Property(e => e.Bio).HasMaxLength(1000);
-
-                entity.HasOne(d => d.User)
-                    .WithOne()
-                    .HasForeignKey<Trainer>(d => d.UserId)
-                    .HasConstraintName("FK_Trainer_User");
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -62,7 +48,13 @@ namespace Diplomski.DAL.Entities
                 entity.HasIndex(e => e.Email, "UC_User_Email")
                     .IsUnique();
 
+                entity.HasIndex(e => e.ExerciserId, "UC_User_ExerciserId")
+                    .IsUnique();
+
                 entity.HasIndex(e => e.PhoneNumber, "UC_User_PhoneNumber")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.TrainerId, "UC_User_TrainerId")
                     .IsUnique();
 
                 entity.Property(e => e.CreatedAt).HasColumnType("date");
@@ -90,6 +82,18 @@ namespace Diplomski.DAL.Entities
                 entity.Property(e => e.UpdatedAt).HasColumnType("date");
 
                 entity.Property(e => e.Username).HasMaxLength(75);
+
+                entity.HasOne(d => d.Exerciser)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<User>(d => d.ExerciserId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_User_Exerciser");
+
+                entity.HasOne(d => d.Trainer)
+                    .WithOne(p => p.User)
+                    .HasForeignKey<User>(d => d.TrainerId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_User_Trainer");
             });
 
             modelBuilder.Entity<VTrainerExerciserUk>(entity =>
