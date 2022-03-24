@@ -28,11 +28,15 @@ namespace Diplomski.DAL.Entities
                 entity.HasIndex(e => e.UserId, "UC_Exerciser_UserId")
                     .IsUnique();
 
+                entity.Property(e => e.CreatedAt).HasColumnType("date");
+
                 entity.Property(e => e.EmergencyContactFullName).HasMaxLength(100);
 
                 entity.Property(e => e.EmergencyContactPhoneNumber).HasMaxLength(20);
 
                 entity.Property(e => e.MessageForCoaches).HasMaxLength(1000);
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("date");
             });
 
             modelBuilder.Entity<Trainer>(entity =>
@@ -41,6 +45,10 @@ namespace Diplomski.DAL.Entities
                     .IsUnique();
 
                 entity.Property(e => e.Bio).HasMaxLength(1000);
+
+                entity.Property(e => e.CreatedAt).HasColumnType("date");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("date");
             });
 
             modelBuilder.Entity<User>(entity =>
