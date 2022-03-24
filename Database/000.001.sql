@@ -10,7 +10,9 @@ create table [Trainer]
 	Id int not null primary key identity,
 	Bio nvarchar(1000) not null,
 	Experience int not null,
-	UserId int not null
+	UserId int not null,
+	CreatedAt Date not null,
+	UpdatedAt Date not null
 );
 
 alter table [Trainer] add constraint UC_Trainer_UserId unique (UserId)
@@ -25,7 +27,9 @@ create table [Exerciser]
 	MessageForCoaches nvarchar(1000) not null,
 	EmergencyContactFullName nvarchar(100) not null,
 	EmergencyContactPhoneNumber nvarchar(20) not null,
-	UserId int not null
+	UserId int not null,
+	CreatedAt Date not null,
+	UpdatedAt Date not null
 );
 
 alter table [Exerciser] add constraint UC_Exerciser_UserId unique (UserId)
@@ -45,16 +49,16 @@ create table [User]
 	Nationality nvarchar(40) not null,
 	IsEmailVerified bit not null,
 	IsPhoneNumberVerified bit not null,
-	SecretCode nvarchar(6) not null,
-	SecretCodeExpiry Date not null,
+	SecretCode nvarchar(6) null,
+	SecretCodeExpiry Date null,
 	AreTermsAndServicesAccepted bit not null,
 	IsPrivacyPolicyAccepted bit not null,
 	DateOfBirth Date not null,
 	ProfilePhotoUrl nvarchar(255) not null,
-	CreatedAt Date not null,
-	UpdatedAt Date not null,
 	TrainerId int null,
-	ExerciserId int null
+	ExerciserId int null,
+	CreatedAt Date not null,
+	UpdatedAt Date not null
 )
 
 alter table [User] add constraint UC_User_Email unique (Email)
@@ -67,3 +71,8 @@ alter table [User] add constraint UC_User_TrainerId unique (TrainerId)
 alter table [User] add constraint UC_User_ExerciserId unique (ExerciserId)
 
 alter table [User] add constraint CHK_User_Role check ((TrainerId is null AND ExerciserId is not null) OR (TrainerId is not null AND ExerciserId is null))
+
+alter table [User] add constraint DF_User_IsEmailVerified default 0 for IsEmailVerified;
+alter table [User] add constraint DF_User_IsPhoneNumberVerified default 0 for IsPhoneNumberVerified;
+alter table [User] add constraint DF_User_AreTermsAndServicesAccepted default 0 for AreTermsAndServicesAccepted;
+alter table [User] add constraint DF_User_IsPrivacyPolicyAccepted default 0 for IsPrivacyPolicyAccepted;
