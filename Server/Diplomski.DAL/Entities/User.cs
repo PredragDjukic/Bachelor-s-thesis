@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Diplomski.DAL.Entities
+﻿namespace Diplomski.DAL.Entities
 {
     public partial class User
     {
@@ -22,12 +19,7 @@ namespace Diplomski.DAL.Entities
         public bool IsPrivacyPolicyAccepted { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string ProfilePhotoUrl { get; set; } = null!;
-        public int? TrainerId { get; set; }
-        public int? ExerciserId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
-        public virtual Exerciser? Exerciser { get; set; }
-        public virtual Trainer? Trainer { get; set; }
     }
 }
