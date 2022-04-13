@@ -1,9 +1,10 @@
-﻿using Diplomski.BLL.DTOs;
+﻿using Diplomski.BLL.Constants;
+using Diplomski.BLL.DTOs;
 using Diplomski.BLL.Exceptions;
+using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
-using System.Net;
 
 namespace Diplomski.BLL.Services
 {
@@ -27,8 +28,7 @@ namespace Diplomski.BLL.Services
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
-                //HASH
-                Password = dto.Password,
+                Password = HashHelper.HashValue(dto.Password),
                 Username = dto.Username,
                 PhoneNumber = dto.PhoneNumber,
                 Nationality = dto.Nationality,
@@ -36,7 +36,7 @@ namespace Diplomski.BLL.Services
                 IsPhoneNumberVerified = false,
                 //GENERATE
                 SecretCode = "asdasd",
-                SecretCodeExpiry = DateTime.UtcNow.AddMinutes(10),
+                SecretCodeExpiry = DateTime.UtcNow.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes),
                 AreTermsAndServicesAccepted = dto.AreTermsAndServicesAccepted,
                 IsPrivacyPolicyAccepted = dto.IsPrivacyPolicyAccepted,
                 DateOfBirth = dto.DateOfBirth,
