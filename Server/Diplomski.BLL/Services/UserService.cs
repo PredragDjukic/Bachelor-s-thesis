@@ -23,6 +23,8 @@ namespace Diplomski.BLL.Services
             this.ValidateUserRegisterDto(dto);
 
             /*
+             * 
+             * CORS
              Check if user with same email already eists
                                      phone number already exists
             If older then 14
@@ -59,10 +61,10 @@ namespace Diplomski.BLL.Services
             if (dto.Password != dto.ConfirmPassword)
                 throw BusinessExceptions.PasswordsDoNotMatch;
 
-            if (dto.IsPrivacyPolicyAccepted)
+            if (!dto.IsPrivacyPolicyAccepted)
                 throw BusinessExceptions.PrivacyPolicyMustBeAccepted;
 
-            if (dto.AreTermsAndServicesAccepted)
+            if (!dto.AreTermsAndServicesAccepted)
                 throw BusinessExceptions.TermsAndCondMustBeAccepted;
         }
     }
