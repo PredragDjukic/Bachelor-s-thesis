@@ -1,5 +1,5 @@
-﻿using Diplomski.BLL.DTOs;
-using Diplomski.BLL.Exceptions;
+﻿using Diplomski.BLL.Constants;
+using Diplomski.BLL.DTOs;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
 using Diplomski.DAL.Entities;
@@ -51,13 +51,14 @@ namespace Diplomski.BLL.Services
         private void ValidateUserRegisterDto(UserRegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
-                throw new BusinessException("Passwords do not match", HttpStatusCode.BadRequest);
+                throw BusinessExceptions.PasswordsDoNotMatch;
 
             if (dto.IsPrivacyPolicyAccepted)
-                throw new BusinessException("Privacy policy must be accepted", HttpStatusCode.BadRequest);
+                throw BusinessExceptions.PrivacyPolicyMustBeAccepted;
 
             if (dto.AreTermsAndServicesAccepted)
-                throw new BusinessException("Terms and conditions must be accepted", HttpStatusCode.BadRequest);
+                throw BusinessExceptions.TermsAndCondMustBeAccepted;
         }
     }
 }
+
