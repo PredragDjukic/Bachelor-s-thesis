@@ -22,6 +22,13 @@ namespace Diplomski.BLL.Services
         {
             this.ValidateUserRegisterDto(dto);
 
+            /*
+             Check if user with same email already eists
+                                     phone number already exists
+            If older then 14
+
+             */
+
             User user = new()
             {
                 FirstName = dto.FirstName,
@@ -38,7 +45,6 @@ namespace Diplomski.BLL.Services
                 AreTermsAndServicesAccepted = dto.AreTermsAndServicesAccepted,
                 IsPrivacyPolicyAccepted = dto.IsPrivacyPolicyAccepted,
                 DateOfBirth = dto.DateOfBirth,
-                ProfilePhotoUrl = dto.ProfilePhotoUrl
             };
 
             _repo.Register(user);

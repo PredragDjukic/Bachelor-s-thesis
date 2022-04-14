@@ -13,6 +13,5 @@
         public bool AreTermsAndServicesAccepted { get; set; }
         public bool IsPrivacyPolicyAccepted { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string ProfilePhotoUrl { get; set; } = null!;
     }
 }
