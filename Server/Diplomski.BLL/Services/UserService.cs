@@ -1,5 +1,4 @@
-﻿using Diplomski.BLL.Constants;
-using Diplomski.BLL.DTOs;
+﻿using Diplomski.BLL.DTOs;
 using Diplomski.BLL.Exceptions;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
@@ -34,9 +33,8 @@ namespace Diplomski.BLL.Services
                 Nationality = dto.Nationality,
                 IsEmailVerified = false,
                 IsPhoneNumberVerified = false,
-                //GENERATE
-                SecretCode = "asdasd",
-                SecretCodeExpiry = DateTime.UtcNow.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes),
+                SecretCode = CodeHelper.GenerateSecretCode(),
+                SecretCodeExpiry = DateTimeHelper.GenerateSecretCodeExpiryDate(),
                 AreTermsAndServicesAccepted = dto.AreTermsAndServicesAccepted,
                 IsPrivacyPolicyAccepted = dto.IsPrivacyPolicyAccepted,
                 DateOfBirth = dto.DateOfBirth,
