@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Diplomski.BLL\Diplomski.BLL.csproj" />
     <ProjectReference Include="..\Diplomski.DAL\Diplomski.DAL.csproj" />
   </ItemGroup>
