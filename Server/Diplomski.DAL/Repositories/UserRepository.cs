@@ -23,5 +23,19 @@ namespace Diplomski.DAL.Repositories
 
             _context.SaveChanges();
         }
+
+        public bool CheckIfExistsByEmail(string email)
+        {
+            bool exists = _context.User.Any(e => e.Email == email);
+
+            return exists;
+        }
+
+        public bool CheckIfExistsByPhoneNumber(string phoneNumber)
+        {
+            bool exists = _context.User.Any(e => e.PhoneNumber == phoneNumber);
+
+            return exists;
+        }
     }
 }

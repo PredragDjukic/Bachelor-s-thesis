@@ -24,12 +24,13 @@ namespace Diplomski.BLL.Services
         {
             this.ValidateUserRegisterDto(dto);
 
-    /*
-             Check if user with same email already eists
-                                     phone number already exists
-            If older then 14
+            if (_repo.CheckIfExistsByEmail(dto.Email))
+                throw BusinessExceptions.UserEmailAlreadyExists;
 
-             */
+            if (_repo.CheckIfExistsByPhoneNumber(dto.PhoneNumber))
+                throw BusinessExceptions.UserPhoneNumberAlreadyExists;
+
+            //If older then 14
 
             User user = new()
             {
