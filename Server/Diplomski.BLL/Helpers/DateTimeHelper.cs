@@ -8,5 +8,12 @@ namespace Diplomski.BLL.Helpers
         {
             return DateTime.UtcNow.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes);
         }
+
+        public static double GetYearDifferenceFromNow(DateTime date)
+        {
+            TimeSpan diff = DateTime.UtcNow - date;
+
+            return diff.Days / 365;
+        }
     }
 }

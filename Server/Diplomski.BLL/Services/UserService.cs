@@ -23,14 +23,7 @@ namespace Diplomski.BLL.Services
         public string Register(UserRegisterDto dto)
         {
             this.ValidateUserRegisterDto(dto);
-
-            if (_repo.CheckIfExistsByEmail(dto.Email))
-                throw BusinessExceptions.UserEmailAlreadyExists;
-
-            if (_repo.CheckIfExistsByPhoneNumber(dto.PhoneNumber))
-                throw BusinessExceptions.UserPhoneNumberAlreadyExists;
-
-            //If older then 14
+            this.DoesExistsByEmailOrPhoneNumber(dto);
 
             User user = new()
             {
@@ -54,19 +47,38 @@ namespace Diplomski.BLL.Services
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
+            //generate jwt token
+
             return "token";
         }
 
         private void ValidateUserRegisterDto(UserRegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
-                throw BusinessExceptions.PasswordsDoNotMatch;
+                throw BusinessExceptions.PasswordsDoNotMatchException;
 
             if (!dto.IsPrivacyPolicyAccepted)
-                throw BusinessExceptions.PrivacyPolicyMustBeAccepted;
+                throw BusinessExceptions.PrivacyPolicyFalseException;
 
             if (!dto.AreTermsAndServicesAccepted)
-                throw BusinessExceptions.TermsAndCondMustBeAccepted;
+                throw BusinessExceptions.TermsAndCondFalseException;
+
+            this.IsUsersAgeValid(dto.DateOfBirth);
+        }
+
+        private void IsUsersAgeValid(DateTime dateOfBirth)
+        {
+            if (DateTimeHelper.GetYearDifferenceFromNow(dateOfBirth) < LiteralConsts.UserMinimalAge)
+                throw BusinessExceptions.UsersAgeException;
+        }
+
+        private void DoesExistsByEmailOrPhoneNumber(UserRegisterDto dto)
+        {
+            if (_repo.CheckIfExistsByEmail(dto.Email))
+                throw BusinessExceptions.UserEmailAlreadyExistsException;
+
+            if (_repo.CheckIfExistsByPhoneNumber(dto.PhoneNumber))
+                throw BusinessExceptions.UserPhoneNumberAlreadyExistsException;
         }
     }
 }
