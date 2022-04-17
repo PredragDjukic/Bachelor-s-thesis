@@ -1,7 +1,7 @@
-﻿using Diplomski.BLL.Constants;
-using Diplomski.BLL.DTOs;
+﻿using Diplomski.BLL.DTOs;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
 
@@ -10,11 +10,13 @@ namespace Diplomski.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
+        private readonly IEmailService _emailService;
 
 
-        public UserService(IUserRepository repo)
+        public UserService(IUserRepository repo, IEmailService emailService)
         {
-            _repo = repo;
+            this._repo = repo;
+            this._emailService = emailService;
         }
 
 
@@ -22,9 +24,7 @@ namespace Diplomski.BLL.Services
         {
             this.ValidateUserRegisterDto(dto);
 
-            /*
-             * 
-             * CORS
+    /*
              Check if user with same email already eists
                                      phone number already exists
             If older then 14
@@ -51,7 +51,7 @@ namespace Diplomski.BLL.Services
 
             _repo.Register(user);
 
-            //Send email
+            _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
             return "token";
         }

@@ -20,6 +20,8 @@ namespace Diplomski.DAL.Repositories
             entity.UpdatedAt = DateTime.UtcNow;
 
             _context.User.Add(entity);
+
+            _context.SaveChanges();
         }
     }
 }
