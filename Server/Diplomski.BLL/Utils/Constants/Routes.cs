@@ -1,4 +1,4 @@
-﻿namespace Diplomski.BLL.Constants
+﻿namespace Diplomski.BLL.Utils.Constants
 {
     public static class Routes
     {
@@ -6,5 +6,6 @@
 
         //Auth
         public const string Auth = Base + "auth/";
+        public const string Register = Auth + "register/";
     }
 }

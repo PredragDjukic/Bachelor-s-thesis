@@ -1,7 +1,7 @@
 ﻿global using System.Net;
 using Diplomski.BLL.Exceptions;
 
-namespace Diplomski.BLL.Constants
+namespace Diplomski.BLL.Utils.Constants
 {
     public static class BusinessExceptions
     {
