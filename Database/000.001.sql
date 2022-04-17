@@ -28,6 +28,8 @@ create table [User]
 alter table [User] add constraint UC_User_Email unique (Email)
 alter table [User] add constraint UC_User_PhoneNumber unique (PhoneNumber)
 
+alter table [User] add constraint CK_User_Password check (len(Password) >= 8)
+
 alter table [User] add constraint DF_User_IsEmailVerified default 0 for IsEmailVerified;
 alter table [User] add constraint DF_User_IsPhoneNumberVerified default 0 for IsPhoneNumberVerified;
 alter table [User] add constraint DF_User_AreTermsAndServicesAccepted default 0 for AreTermsAndServicesAccepted;
