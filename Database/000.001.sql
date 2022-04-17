@@ -21,7 +21,6 @@ create table [User]
 	AreTermsAndServicesAccepted bit not null,
 	IsPrivacyPolicyAccepted bit not null,
 	DateOfBirth Date not null,
-	ProfilePhotoUrl nvarchar(255) not null,
 	CreatedAt Date not null,
 	UpdatedAt Date not null
 )

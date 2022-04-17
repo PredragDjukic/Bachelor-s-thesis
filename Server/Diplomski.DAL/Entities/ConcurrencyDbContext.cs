@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Diplomski.DAL.Entities
 {
@@ -40,8 +43,6 @@ namespace Diplomski.DAL.Entities
                 entity.Property(e => e.Password).HasMaxLength(64);
 
                 entity.Property(e => e.PhoneNumber).HasMaxLength(20);
-
-                entity.Property(e => e.ProfilePhotoUrl).HasMaxLength(255);
 
                 entity.Property(e => e.SecretCode).HasMaxLength(6);
 

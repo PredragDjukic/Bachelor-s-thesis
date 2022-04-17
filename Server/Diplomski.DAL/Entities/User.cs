@@ -1,4 +1,7 @@
-﻿namespace Diplomski.DAL.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace Diplomski.DAL.Entities
 {
     public partial class User
     {
@@ -18,7 +21,6 @@
         public bool AreTermsAndServicesAccepted { get; set; }
         public bool IsPrivacyPolicyAccepted { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string ProfilePhotoUrl { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
