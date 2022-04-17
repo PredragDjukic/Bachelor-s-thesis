@@ -1,4 +1,4 @@
-﻿using Diplomski.BLL.Constants;
+﻿using Diplomski.BLL.Utils.Constants;
 
 namespace Diplomski.BLL.Helpers
 {
