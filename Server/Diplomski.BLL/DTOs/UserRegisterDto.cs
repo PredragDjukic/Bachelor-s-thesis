@@ -7,6 +7,8 @@ namespace Diplomski.BLL.DTOs
     public class UserRegisterDto
     {
         [Required]
+        public UserType UserType { get; set; }
+        [Required]
         public string FirstName { get; set; } = null!;
         [Required]
         public string LastName { get; set; } = null!;
