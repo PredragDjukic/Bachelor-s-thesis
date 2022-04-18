@@ -10,13 +10,17 @@ namespace Diplomski.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
+
         private readonly IEmailService _emailService;
+        private readonly IAuthService _authService;
 
 
-        public UserService(IUserRepository repo, IEmailService emailService)
+        public UserService(IUserRepository repo, IEmailService emailService, IAuthService authService)
         {
             this._repo = repo;
+
             this._emailService = emailService;
+            this._authService = authService;
         }
 
 
@@ -27,6 +31,7 @@ namespace Diplomski.BLL.Services
 
             User user = new()
             {
+                Role = dto.UserType,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
@@ -47,9 +52,9 @@ namespace Diplomski.BLL.Services
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
-            //generate jwt token
+            string token = _authService.GenerateJwt(user.Role);
 
-            return "token";
+            return token;
         }
 
         private void ValidateUserRegisterDto(UserRegisterDto dto)
