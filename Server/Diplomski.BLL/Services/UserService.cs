@@ -31,7 +31,7 @@ namespace Diplomski.BLL.Services
 
             User user = new()
             {
-                Role = dto.UserType,
+                UserType = Convert.ToInt32(dto.UserType),
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
@@ -52,7 +52,7 @@ namespace Diplomski.BLL.Services
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
-            string token = _authService.GenerateJwt(user.Role);
+            string token = _authService.GenerateJwt(user.UserType);
 
             return token;
         }

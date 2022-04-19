@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Diplomski.BLL.Utils.AppSettingsModels;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Services.AddDbContext<ConcurrencyDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("FitConDev"));
 });
+
+builder.Services.Configure<JwtModel>(builder.Configuration)
+    .AddSingleton(sp => sp.GetRequiredService<IOptions<JwtModel>>().Value);
 
 builder.Services.AddCors(options =>
 {
@@ -42,9 +47,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        ValidIssuer = builder.Configuration["Issuer"],
+        ValidAudience = builder.Configuration["Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey (Encoding.UTF8.GetBytes(builder.Configuration["Key"]))
     };
 });
 
