@@ -1,4 +1,6 @@
-﻿public enum UserType
+﻿namespace Diplomski.BLL.Enums;
+
+public enum UserType
 {
     Trainer,
     Exerciser

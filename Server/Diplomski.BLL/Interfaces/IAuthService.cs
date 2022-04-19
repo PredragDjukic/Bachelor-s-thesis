@@ -2,6 +2,7 @@
 {
     public interface IAuthService
     {
-        string GenerateJwt(int role);
+        string GenerateJwt(int role, bool isEmailVerified);
+        Dictionary<string, object> ValidateTokenAndGetClaims(string token);
     }
 }

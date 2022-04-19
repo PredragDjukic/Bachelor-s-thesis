@@ -52,7 +52,7 @@ namespace Diplomski.BLL.Services
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
-            string token = _authService.GenerateJwt(user.UserType);
+            string token = _authService.GenerateJwt(user.UserType, user.IsEmailVerified);
 
             return token;
         }

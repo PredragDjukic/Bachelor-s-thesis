@@ -1,6 +1,7 @@
 ﻿using Diplomski.BLL.Utils.Constants;
 using Diplomski.BLL.Validations;
 using System.ComponentModel.DataAnnotations;
+using Diplomski.BLL.Enums;
 
 namespace Diplomski.BLL.DTOs
 {

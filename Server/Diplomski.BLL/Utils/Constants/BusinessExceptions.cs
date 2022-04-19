@@ -24,5 +24,10 @@ namespace Diplomski.BLL.Utils.Constants
             throw new BusinessException("User must be older then 14 years", HttpStatusCode.BadRequest);
         #endregion
 
+        #region Auth
+        public static BusinessException NotAuthorizedException =>
+            throw new BusinessException("Not authorized", HttpStatusCode.BadRequest);
+        
+        #endregion
     }
 }
