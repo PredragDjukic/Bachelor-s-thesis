@@ -16,8 +16,8 @@ namespace Diplomski.DAL.Entities
         public string Nationality { get; set; } = null!;
         public bool IsEmailVerified { get; set; }
         public bool IsPhoneNumberVerified { get; set; }
-        public string? SecretCode { get; set; }
-        public DateTime? SecretCodeExpiry { get; set; }
+        public string SecretCode { get; set; } = null!;
+        public DateTime SecretCodeExpiry { get; set; }
         public bool AreTermsAndServicesAccepted { get; set; }
         public bool IsPrivacyPolicyAccepted { get; set; }
         public DateTime DateOfBirth { get; set; }
