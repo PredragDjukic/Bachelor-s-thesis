@@ -24,8 +24,8 @@ namespace Diplomski.BLL.Services
         {
             var claims = new[]
             {
-                new Claim(Claims.Role.ToString(), role.ToString()),
-                new Claim(Claims.IsEmailVerified.ToString(), isEmailVerified.ToString())
+                new Claim(ClaimTypes.Role, role.ToString()),
+                new Claim(ClaimTypes.Email, isEmailVerified.ToString())
             };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._jwtModel.Key));
