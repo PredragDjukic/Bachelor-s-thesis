@@ -1,6 +1,8 @@
 ﻿using Diplomski.BLL.DTOs;
+using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Utils.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diplomski.Presentation.Controllers
@@ -19,6 +21,7 @@ namespace Diplomski.Presentation.Controllers
 
         [HttpPost]
         [Route(Routes.Register)]
+        [AllowAnonymous]
         public ActionResult Register([FromBody] UserRegisterDto dto)
         {
             string token = _userService.Register(dto);

@@ -20,12 +20,13 @@ namespace Diplomski.BLL.Services
         }
         
         
-        public string GenerateJwt(int role, bool isEmailVerified)
+        public string GenerateJwt(int userId, int role, bool isEmailVerified)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Role, role.ToString()),
-                new Claim(ClaimTypes.Email, isEmailVerified.ToString())
+                new Claim(Claims.Id.ToString(), userId.ToString()),
+                new Claim(Claims.Role.ToString(), role.ToString()),
+                new Claim(Claims.IsEmailVerified.ToString(), isEmailVerified.ToString())
             };
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._jwtModel.Key));

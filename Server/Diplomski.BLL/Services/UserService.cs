@@ -1,4 +1,5 @@
-﻿using Diplomski.BLL.DTOs;
+﻿using Diplomski.BLL.DTOs.UserDtos;
+using Diplomski.BLL.Extensions;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Utils.Constants;
@@ -42,21 +43,22 @@ namespace Diplomski.BLL.Services
                 IsEmailVerified = false,
                 IsPhoneNumberVerified = false,
                 SecretCode = CodeHelper.GenerateSecretCode(),
-                SecretCodeExpiry = DateTimeHelper.GenerateSecretCodeExpiryDate(),
+                SecretCodeExpiry = CodeHelper.GenerateSecretCodeExpiryDate(),
                 AreTermsAndServicesAccepted = dto.AreTermsAndServicesAccepted,
                 IsPrivacyPolicyAccepted = dto.IsPrivacyPolicyAccepted,
                 DateOfBirth = dto.DateOfBirth,
             };
 
-            _repo.Register(user);
+            _repo.Create(user);
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
-            string token = _authService.GenerateJwt(user.UserType, user.IsEmailVerified);
+            string token = _authService.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
 
             return token;
         }
-
+        
+        
         private void ValidateUserRegisterDto(UserRegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
@@ -85,6 +87,42 @@ namespace Diplomski.BLL.Services
             if (_repo.CheckIfExistsByPhoneNumber(dto.PhoneNumber))
                 throw BusinessExceptions.UserPhoneNumberAlreadyExistsException;
         }
+        
+        public string VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
+        {
+            User user = this.Get(loggedUserId);
+
+            this.ValidateSecretCodeAndExpiry(user, dto);
+
+            user.IsEmailVerified = true;
+            _repo.Update(user);
+            
+            string token = _authService.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
+
+            return token;
+        }
+
+        private void ValidateSecretCodeAndExpiry(User user, SecretCodeUserDto dto)
+        {
+            DateTime expiryLimit = user.SecretCodeExpiry.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes);
+            
+            if (DateTime.UtcNow.IsGreater(expiryLimit))
+                throw BusinessExceptions.SecretCodeExpired;
+
+            if (user.SecretCode != dto.SecretCode)
+                throw BusinessExceptions.SecretCodeInvalid;
+        }
+
+        private User Get(int id)
+        {
+            User? user = _repo.Get(id);
+
+            if (user == null)
+                throw BusinessExceptions.UserDoesNotExist;
+
+            return user;
+        }
+
     }
 }
 

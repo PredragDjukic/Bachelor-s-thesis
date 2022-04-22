@@ -1,4 +1,6 @@
-﻿namespace Diplomski.BLL.Helpers
+﻿using Diplomski.BLL.Utils.Constants;
+
+namespace Diplomski.BLL.Helpers
 {
     public static class CodeHelper
     {
@@ -8,5 +10,11 @@
                 .Next(0, 999999)
                 .ToString("D6");
         }
+        
+        public static DateTime GenerateSecretCodeExpiryDate()
+        {
+            return DateTime.UtcNow.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes);
+        }
+
     }
 }

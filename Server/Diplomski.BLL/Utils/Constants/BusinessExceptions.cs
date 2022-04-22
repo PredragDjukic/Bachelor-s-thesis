@@ -6,6 +6,12 @@ namespace Diplomski.BLL.Utils.Constants
     public static class BusinessExceptions
     {
         #region User
+        public static BusinessException UserDoesNotExist =>
+            throw new BusinessException("User with provided Id does not exists", HttpStatusCode.BadRequest);
+        
+        public static BusinessException SecretCodeInvalid =>
+            throw new BusinessException("Secret code is not valid", HttpStatusCode.BadRequest);
+        
         public static BusinessException PasswordsDoNotMatchException =>
             throw new BusinessException("Passwords do not match", HttpStatusCode.BadRequest);
 
@@ -27,6 +33,9 @@ namespace Diplomski.BLL.Utils.Constants
         #region Auth
         public static BusinessException NotAuthorizedException =>
             throw new BusinessException("Not authorized", HttpStatusCode.BadRequest);
+        
+        public static BusinessException SecretCodeExpired =>
+            throw new BusinessException("Secret code has expired", HttpStatusCode.BadRequest);
         
         #endregion
     }

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Interfaces.External;
 using Diplomski.BLL.Services;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Diplomski.BLL.Utils.AppSettingsModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +53,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = builder.Configuration["Issuer"],
         IssuerSigningKey = new SymmetricSecurityKey (Encoding.UTF8.GetBytes(builder.Configuration["Key"]))
     };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+        .RequireClaim("Id")
+        .RequireClaim("IsEmailVerified", "true")
+        .Build();
+
+    options.AddPolicy("UnverifiedEmail", policy =>
+    {
+        policy.RequireClaim("IsEmailVerified", "false");
+    });
 });
 
 //TODO: Move DI to separate file

@@ -2,6 +2,7 @@
 
 public enum Claims
 {
+    Id,
     Role,
     IsEmailVerified
 }
