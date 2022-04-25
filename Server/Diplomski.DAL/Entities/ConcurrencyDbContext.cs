@@ -46,7 +46,7 @@ namespace Diplomski.DAL.Entities
 
                 entity.Property(e => e.SecretCode).HasMaxLength(6);
 
-                entity.Property(e => e.SecretCodeExpiry).HasColumnType("date");
+                entity.Property(e => e.SecretCodeExpiry).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("date");
 
