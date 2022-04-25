@@ -61,12 +61,15 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
         .RequireClaim("Id")
-        .RequireClaim("IsEmailVerified", "true")
+        .RequireClaim("IsEmailVerified", "True")
         .Build();
 
     options.AddPolicy("UnverifiedEmail", policy =>
     {
-        policy.RequireClaim("IsEmailVerified", "false");
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("Id");
+        policy.RequireClaim("IsEmailVerified", "False");
+        policy.Build();
     });
 });
 
