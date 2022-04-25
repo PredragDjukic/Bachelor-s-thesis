@@ -112,6 +112,16 @@ namespace Diplomski.BLL.Services
             if (user.SecretCode != dto.SecretCode)
                 throw BusinessExceptions.SecretCodeInvalid;
         }
+        
+        public void ResendSecretCode(int loggedUserId)
+        {
+            User user = this.Get(loggedUserId);
+
+            user.SecretCode = CodeHelper.GenerateSecretCode();
+            user.SecretCodeExpiry = CodeHelper.GenerateSecretCodeExpiryDate();
+
+            _repo.Update(user);
+        }
 
         private User Get(int id)
         {

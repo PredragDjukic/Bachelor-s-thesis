@@ -26,4 +26,13 @@ public class UserController : BaseController
 
         return Ok(new { Token = token });
     }
+    
+    [Route(Routes.ResendSecretCode)]
+    [Authorize(Policy = "UnverifiedEmail")]
+    public ActionResult ResendSecretCode()
+    {
+        _service.ResendSecretCode(CurrentUserId);
+
+        return Ok();
+    }
 }

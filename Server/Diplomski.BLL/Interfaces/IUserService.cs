@@ -1,6 +1,4 @@
-﻿using Diplomski.BLL.DTOs;
-using Diplomski.BLL.DTOs.UserDtos;
-using Diplomski.DAL.Entities;
+﻿using Diplomski.BLL.DTOs.UserDtos;
 
 namespace Diplomski.BLL.Interfaces
 {
@@ -8,5 +6,6 @@ namespace Diplomski.BLL.Interfaces
     {
         string Register(UserRegisterDto dto);
         string VerifyEmail(int loggedUserId, SecretCodeUserDto dto);
+        void ResendSecretCode(int loggedUserId);
     }
 }

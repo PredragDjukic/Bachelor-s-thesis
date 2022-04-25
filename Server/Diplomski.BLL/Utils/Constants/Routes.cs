@@ -11,5 +11,6 @@
         //user
         public const string User = Base + "user/";
         public const string VerifyEmail = User + "verify-email";
+        public const string ResendSecretCode = User + "resend-code";
     }
 }
