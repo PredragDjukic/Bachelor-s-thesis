@@ -17,15 +17,6 @@ public class UserController : BaseController
         _service = service;
     }
 
-
-    [Route(Routes.VerifyEmail)]
-    [Authorize(Policy = "UnverifiedEmail")]
-    public ActionResult VerifyEmail([FromBody] SecretCodeUserDto dto)
-    {
-        string token = _service.VerifyEmail(CurrentUserId, dto);
-
-        return Ok(new { Token = token });
-    }
     
     [Route(Routes.ResendSecretCode)]
     [Authorize(Policy = "UnverifiedEmail")]

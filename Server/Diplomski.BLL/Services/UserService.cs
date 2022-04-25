@@ -13,19 +13,17 @@ namespace Diplomski.BLL.Services
         private readonly IUserRepository _repo;
 
         private readonly IEmailService _emailService;
-        private readonly IAuthService _authService;
 
 
-        public UserService(IUserRepository repo, IEmailService emailService, IAuthService authService)
+        public UserService(IUserRepository repo, IEmailService emailService)
         {
             this._repo = repo;
 
             this._emailService = emailService;
-            this._authService = authService;
         }
 
 
-        public string Register(UserRegisterDto dto)
+        public User Create(UserRegisterDto dto)
         {
             this.ValidateUserRegisterDto(dto);
             this.DoesExistsByEmailOrPhoneNumber(dto);
@@ -53,9 +51,7 @@ namespace Diplomski.BLL.Services
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);
 
-            string token = _authService.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
-
-            return token;
+            return user;
         }
         
         
@@ -88,7 +84,7 @@ namespace Diplomski.BLL.Services
                 throw BusinessExceptions.UserPhoneNumberAlreadyExistsException;
         }
         
-        public string VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
+        public User VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
         {
             User user = this.Get(loggedUserId);
 
@@ -97,9 +93,7 @@ namespace Diplomski.BLL.Services
             user.IsEmailVerified = true;
             _repo.Update(user);
             
-            string token = _authService.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
-
-            return token;
+            return user;
         }
 
         private void ValidateSecretCodeAndExpiry(User user, SecretCodeUserDto dto)

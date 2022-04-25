@@ -4,8 +4,8 @@ namespace Diplomski.BLL.Interfaces
 {
     public interface IAuthService
     {
+        string Register(UserRegisterDto dto);
         string Login(UserLoginDto dto);
-        string GenerateJwt(int userId, int role, bool isEmailVerified);
-        Dictionary<string, object> ValidateTokenAndGetClaims(string token);
+        string VerifyEmail(int loggedUserId, SecretCodeUserDto dto);
     }
 }

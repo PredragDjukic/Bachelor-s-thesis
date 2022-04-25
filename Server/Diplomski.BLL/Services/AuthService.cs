@@ -25,6 +25,15 @@ namespace Diplomski.BLL.Services
         }
 
 
+        public string Register(UserRegisterDto dto)
+        {
+            User user = _userService.Create(dto);
+
+            string token = this.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
+
+            return token;
+        }
+
         public string Login(UserLoginDto dto)
         {
             User user = _userService.Get(dto.Email);
@@ -37,7 +46,16 @@ namespace Diplomski.BLL.Services
             return token;
         }
 
-        public string GenerateJwt(int userId, int role, bool isEmailVerified)
+        public string VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
+        {
+            User user = _userService.VerifyEmail(loggedUserId, dto);
+            
+            string token = this.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
+
+            return token;
+        }
+
+        private string GenerateJwt(int userId, int role, bool isEmailVerified)
         {
             var claims = new[]
             {
@@ -57,37 +75,6 @@ namespace Diplomski.BLL.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-        }
-
-        public Dictionary<string, object> ValidateTokenAndGetClaims(string token)
-        {
-            JwtSecurityToken jwtToken  = ValidateToken(token);
-            
-            Dictionary<string, object> claims = jwtToken.Claims
-                .ToDictionary(e => e.Type, e => (object)e.Value);
-
-            return claims;
-        }
-
-        private JwtSecurityToken ValidateToken(string token)
-        {
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-
-            byte[] key = Encoding.ASCII.GetBytes(_jwtModel.Key);
-
-            tokenHandler.ValidateToken(
-                token,
-                new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidIssuer = _jwtModel.Issuer,
-                    ClockSkew = TimeSpan.Zero
-                },
-                out SecurityToken validatedToken
-            );
-
-            return (JwtSecurityToken)validatedToken;
         }
     }
 }

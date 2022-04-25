@@ -26,7 +26,7 @@ namespace Diplomski.Presentation.Controllers
         [AllowAnonymous]
         public ActionResult Register([FromBody] UserRegisterDto dto)
         {
-            string token = _userService.Register(dto);
+            string token = _authService.Register(dto);
 
             return Ok(new { Token = token});
         }
@@ -40,5 +40,16 @@ namespace Diplomski.Presentation.Controllers
 
             return Ok(new { Token = token });
         }
+        
+        [HttpPost]
+        [Route(Routes.VerifyEmail)]
+        [Authorize(Policy = "UnverifiedEmail")]
+        public ActionResult VerifyEmail([FromBody] SecretCodeUserDto dto)
+        {
+            string token = _authService.VerifyEmail(CurrentUserId, dto);
+
+            return Ok(new { Token = token });
+        }
+
     }
 }
