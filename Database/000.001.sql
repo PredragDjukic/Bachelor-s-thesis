@@ -17,7 +17,7 @@ create table [User]
 	IsEmailVerified bit not null,
 	IsPhoneNumberVerified bit not null,
 	SecretCode nvarchar(6) not null,
-	SecretCodeExpiry Date not null,
+	SecretCodeExpiry datetime not null,
 	AreTermsAndServicesAccepted bit not null,
 	IsPrivacyPolicyAccepted bit not null,
 	DateOfBirth Date not null,
