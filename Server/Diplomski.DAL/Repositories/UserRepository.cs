@@ -20,6 +20,11 @@ namespace Diplomski.DAL.Repositories
             return _context.User.FirstOrDefault(e => e.Id == id);
         }
 
+        public User? Get(string email)
+        {
+            return _context.User.FirstOrDefault(e => e.Email == email);
+        }
+
         public void Create(User entity)
         {
             entity.CreatedAt = DateTime.UtcNow;

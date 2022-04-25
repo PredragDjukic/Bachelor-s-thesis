@@ -3,23 +3,40 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Enums;
+using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Utils.AppSettingsModels;
 using Diplomski.BLL.Utils.Constants;
+using Diplomski.DAL.Entities;
 
 namespace Diplomski.BLL.Services
 {
     public class AuthService : IAuthService
     {
         private readonly JwtModel _jwtModel;
+        private readonly IUserService _userService;
         
         
-        public AuthService(JwtModel jwtModel)
+        public AuthService(JwtModel jwtModel, IUserService userService)
         {
             this._jwtModel = jwtModel;
+            _userService = userService;
         }
-        
-        
+
+
+        public string Login(UserLoginDto dto)
+        {
+            User user = _userService.Get(dto.Email);
+
+            if (!HashHelper.IsValueEqualToHash(dto.Password, user.Password))
+                throw BusinessExceptions.PasswordIncorrect;
+
+            string token = this.GenerateJwt(user.Id, user.UserType, user.IsEmailVerified);
+
+            return token;
+        }
+
         public string GenerateJwt(int userId, int role, bool isEmailVerified)
         {
             var claims = new[]

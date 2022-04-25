@@ -37,6 +37,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException SecretCodeExpired =>
             throw new BusinessException("Secret code has expired", HttpStatusCode.BadRequest);
         
+        public static BusinessException PasswordIncorrect =>
+            throw new BusinessException("Password is not valid", HttpStatusCode.BadRequest);
+        
         #endregion
     }
 }

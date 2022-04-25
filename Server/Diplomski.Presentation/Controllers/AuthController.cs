@@ -11,11 +11,13 @@ namespace Diplomski.Presentation.Controllers
     public class AuthController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
 
-        public AuthController(IUserService userService)
+        public AuthController(IUserService userService, IAuthService authService)
         {
             _userService = userService;
+            _authService = authService;
         }
 
 
@@ -27,6 +29,16 @@ namespace Diplomski.Presentation.Controllers
             string token = _userService.Register(dto);
 
             return Ok(new { Token = token});
+        }
+        
+        [HttpPost]
+        [Route(Routes.Login)]
+        [AllowAnonymous]
+        public ActionResult Login([FromBody] UserLoginDto dto)
+        {
+            string token = _authService.Login(dto);
+
+            return Ok(new { Token = token });
         }
     }
 }

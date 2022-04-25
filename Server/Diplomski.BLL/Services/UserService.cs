@@ -123,6 +123,16 @@ namespace Diplomski.BLL.Services
             _repo.Update(user);
         }
 
+        public User Get(string email)
+        {
+            User? user = _repo.Get(email);
+
+            if (user == null)
+                throw BusinessExceptions.UserDoesNotExist;
+
+            return user;
+        }
+        
         private User Get(int id)
         {
             User? user = _repo.Get(id);
@@ -132,7 +142,6 @@ namespace Diplomski.BLL.Services
 
             return user;
         }
-
     }
 }
 

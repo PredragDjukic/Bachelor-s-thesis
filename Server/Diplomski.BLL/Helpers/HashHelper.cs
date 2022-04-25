@@ -1,4 +1,5 @@
-﻿using Diplomski.BLL.Exceptions;
+﻿using System.Runtime.CompilerServices;
+using Diplomski.BLL.Exceptions;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -6,6 +7,14 @@ namespace Diplomski.BLL.Helpers
 {
     public static class HashHelper
     {
+        
+        public static bool IsValueEqualToHash(string value, string existingHash)
+        {
+            string newHash = HashValue(value);
+
+            return newHash == existingHash ? true : false;
+        }
+        
         public static string HashValue(string value)
         {
             if (string.IsNullOrEmpty(value))
