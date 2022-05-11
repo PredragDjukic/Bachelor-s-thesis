@@ -16,10 +16,44 @@ namespace Diplomski.DAL.Entities
         {
         }
 
+        public virtual DbSet<Bundle> Bundle { get; set; } = null!;
+        public virtual DbSet<Package> Package { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Bundle>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasColumnType("date");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("date");
+
+                entity.HasOne(d => d.Exerciser)
+                    .WithMany(p => p.Bundle)
+                    .HasForeignKey(d => d.ExerciserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Bundle_Exerciser");
+
+                entity.HasOne(d => d.Package)
+                    .WithMany(p => p.Bundle)
+                    .HasForeignKey(d => d.PackageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Bundle_Package");
+            });
+
+            modelBuilder.Entity<Package>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasColumnType("date");
+
+                entity.Property(e => e.Price).HasColumnType("decimal(12, 2)");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("date");
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.Email, "UC_User_Email")

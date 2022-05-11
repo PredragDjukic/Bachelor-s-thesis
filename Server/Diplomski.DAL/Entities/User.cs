@@ -5,6 +5,11 @@ namespace Diplomski.DAL.Entities
 {
     public partial class User
     {
+        public User()
+        {
+            Bundle = new HashSet<Bundle>();
+        }
+
         public int Id { get; set; }
         public int UserType { get; set; }
         public string FirstName { get; set; } = null!;
@@ -23,5 +28,7 @@ namespace Diplomski.DAL.Entities
         public DateTime DateOfBirth { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public virtual ICollection<Bundle> Bundle { get; set; }
     }
 }
