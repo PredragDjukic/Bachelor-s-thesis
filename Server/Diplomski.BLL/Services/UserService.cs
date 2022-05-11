@@ -118,7 +118,27 @@ namespace Diplomski.BLL.Services
             _repo.Update(user);
         }
 
-        public User GetById(string email)
+        public UserReadDto GetExerciser(int id)
+        {
+            User? exerciser = _repo.GetExerciser(id);
+            
+            if(exerciser == null)
+                throw BusinessExceptions.ExerciserDoesNotExist;
+
+            return exerciser.ToReadDto();
+        }
+        
+        public UserReadDto GetTrainer(int id)
+        {
+            User? trainer = _repo.GetTrainer(id);
+            
+            if(trainer == null)
+                throw BusinessExceptions.TrainerDoesNotExist;
+
+            return trainer.ToReadDto();
+        }
+
+        public User Get(string email)
         {
             User? user = _repo.Get(email);
 
@@ -134,7 +154,7 @@ namespace Diplomski.BLL.Services
 
             return user.ToReadDto();
         }
-
+        
         private User GetById(int id)
         {
             User? user = _repo.Get(id);
