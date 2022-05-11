@@ -1,4 +1,4 @@
-﻿namespace Diplomski.BLL.Enums;
+﻿namespace Diplomski.DAL.Enums;
 
 public enum UserType
 {

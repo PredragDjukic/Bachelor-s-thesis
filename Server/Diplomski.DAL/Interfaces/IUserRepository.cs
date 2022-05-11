@@ -6,6 +6,8 @@ namespace Diplomski.DAL.Interfaces
     {
         User? Get(int id);
         User? Get(string email);
+        User? GetTrainer(int id);
+        User? GetExerciser(int id);
         void Create(User entity);
         bool CheckIfExistsByEmail(string email);
         bool CheckIfExistsByPhoneNumber(string phoneNumber);

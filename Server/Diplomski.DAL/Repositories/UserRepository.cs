@@ -1,4 +1,5 @@
 ﻿using Diplomski.DAL.Entities;
+using Diplomski.DAL.Enums;
 using Diplomski.DAL.Interfaces;
 using Diplomski.DAL.Mappers;
 
@@ -23,6 +24,22 @@ namespace Diplomski.DAL.Repositories
         public User? Get(string email)
         {
             return _context.User.FirstOrDefault(e => e.Email == email);
+        }
+
+        public User? GetTrainer(int id)
+        {
+            return _context.User.FirstOrDefault(e => 
+                e.Id == id && 
+                e.UserType == Convert.ToInt32(UserType.Trainer)
+            );
+        }
+
+        public User? GetExerciser(int id)
+        {
+            return _context.User.FirstOrDefault(e => 
+                e.Id == id && 
+                e.UserType == Convert.ToInt32(UserType.Exerciser)
+            );
         }
 
         public void Create(User entity)
