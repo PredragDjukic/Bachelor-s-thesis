@@ -22,8 +22,17 @@ public class UserController : BaseController
     [Authorize(Policy = "UnverifiedEmail")]
     public ActionResult ResendSecretCode()
     {
-        _service.ResendSecretCode(CurrentUserId);
+        _service.ResendSecretCode(this.CurrentUserId);
 
         return Ok();
+    }
+    
+    [Route(Routes.LoggedInData)]
+    [Authorize(Policy = "UnverifiedEmail")]
+    public ActionResult GetLoggedInData()
+    {
+        UserReadDto user = _service.Get(this.CurrentUserId);
+
+        return Ok(user);
     }
 }

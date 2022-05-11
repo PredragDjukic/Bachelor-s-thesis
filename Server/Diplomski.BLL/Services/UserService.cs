@@ -2,6 +2,7 @@
 using Diplomski.BLL.Extensions;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
+using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
@@ -53,8 +54,8 @@ namespace Diplomski.BLL.Services
 
             return user;
         }
-        
-        
+
+
         private void ValidateUserRegisterDto(UserRegisterDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
@@ -83,33 +84,33 @@ namespace Diplomski.BLL.Services
             if (_repo.CheckIfExistsByPhoneNumber(dto.PhoneNumber))
                 throw BusinessExceptions.UserPhoneNumberAlreadyExistsException;
         }
-        
+
         public User VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
         {
-            User user = this.Get(loggedUserId);
+            User user = this.GetById(loggedUserId);
 
             this.ValidateSecretCodeAndExpiry(user, dto);
 
             user.IsEmailVerified = true;
             _repo.Update(user);
-            
+
             return user;
         }
 
         private void ValidateSecretCodeAndExpiry(User user, SecretCodeUserDto dto)
         {
             DateTime expiryLimit = user.SecretCodeExpiry.AddMinutes(LiteralConsts.SecretCodeExpiryInMinutes);
-            
+
             if (DateTime.UtcNow.IsGreater(expiryLimit))
                 throw BusinessExceptions.SecretCodeExpired;
 
             if (user.SecretCode != dto.SecretCode)
                 throw BusinessExceptions.SecretCodeInvalid;
         }
-        
+
         public void ResendSecretCode(int loggedUserId)
         {
-            User user = this.Get(loggedUserId);
+            User user = this.GetById(loggedUserId);
 
             user.SecretCode = CodeHelper.GenerateSecretCode();
             user.SecretCodeExpiry = CodeHelper.GenerateSecretCodeExpiryDate();
@@ -117,7 +118,7 @@ namespace Diplomski.BLL.Services
             _repo.Update(user);
         }
 
-        public User Get(string email)
+        public User GetById(string email)
         {
             User? user = _repo.Get(email);
 
@@ -126,8 +127,15 @@ namespace Diplomski.BLL.Services
 
             return user;
         }
-        
-        private User Get(int id)
+
+        public UserReadDto Get(int id)
+        {
+            User? user = GetById(id);
+
+            return user.ToReadDto();
+        }
+
+        private User GetById(int id)
         {
             User? user = _repo.Get(id);
 

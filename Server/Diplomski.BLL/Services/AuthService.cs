@@ -36,7 +36,7 @@ namespace Diplomski.BLL.Services
 
         public string Login(UserLoginDto dto)
         {
-            User user = _userService.Get(dto.Email);
+            User user = _userService.GetById(dto.Email);
 
             if (!HashHelper.IsValueEqualToHash(dto.Password, user.Password))
                 throw BusinessExceptions.PasswordIncorrect;

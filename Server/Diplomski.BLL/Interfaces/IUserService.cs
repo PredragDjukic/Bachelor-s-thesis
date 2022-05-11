@@ -5,7 +5,8 @@ namespace Diplomski.BLL.Interfaces
 {
     public interface IUserService
     {
-        User Get(string email);
+        UserReadDto Get(int id);
+        User GetById(string email);
         User Create(UserRegisterDto dto);
         User VerifyEmail(int loggedUserId, SecretCodeUserDto dto);
         void ResendSecretCode(int loggedUserId);
