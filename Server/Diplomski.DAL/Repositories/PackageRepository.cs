@@ -26,4 +26,9 @@ public class PackageRepository : IPackageRepository
 
         return entity;
     }
+
+    public Package? Get(int id)
+    {
+        return _context.Package.FirstOrDefault(e => e.Id == id);
+    }
 }

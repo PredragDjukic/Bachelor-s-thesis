@@ -2,6 +2,7 @@
 using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
 
@@ -33,5 +34,15 @@ public class PackageService : IPackageService
         Package result = _repository.Create(package);
 
         return result.ToReadDto();
+    }
+
+    public PackageReadDto Get(int id)
+    {
+        Package? package = _repository.Get(id);
+
+        if (package == null)
+            throw BusinessExceptions.PackageDoesNotExist;
+
+        return package.ToReadDto();
     }
 }

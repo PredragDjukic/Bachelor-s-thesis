@@ -5,4 +5,5 @@ namespace Diplomski.BLL.Interfaces;
 public interface IPackageService
 {
     PackageReadDto Create(int trainerId, PackageCreateDto dto);
+    PackageReadDto Get(int id);
 }

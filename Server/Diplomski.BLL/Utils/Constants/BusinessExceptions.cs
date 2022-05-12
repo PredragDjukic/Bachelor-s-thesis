@@ -47,5 +47,12 @@ namespace Diplomski.BLL.Utils.Constants
             throw new BusinessException("Password is not valid", HttpStatusCode.BadRequest);
         
         #endregion
+
+        #region Package
+
+        public static BusinessException PackageDoesNotExist =>
+            throw new BusinessException("Package with provided id does not exists", HttpStatusCode.NotFound);
+
+        #endregion
     }
 }
