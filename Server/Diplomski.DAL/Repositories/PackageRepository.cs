@@ -1,5 +1,6 @@
 ﻿using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Diplomski.DAL.Repositories;
 
@@ -14,7 +15,7 @@ public class PackageRepository : IPackageRepository
     }
 
     
-    public void Create(Package entity)
+    public Package Create(Package entity)
     {   
         entity.CreatedAt = DateTime.UtcNow;
         entity.UpdatedAt = DateTime.UtcNow;
@@ -22,5 +23,7 @@ public class PackageRepository : IPackageRepository
         _context.Package.Add(entity);
 
         _context.SaveChanges();
+
+        return entity;
     }
 }

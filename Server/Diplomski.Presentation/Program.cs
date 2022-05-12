@@ -79,6 +79,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPackageService, PackageService>();
 
 //ExternalServices
 builder.Services.AddScoped<ISendGridService, SendGridService>();
@@ -88,6 +89,7 @@ builder.Services.AddScoped<ConcurrencyDbContext>();
 
 //Repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 
 var app = builder.Build();
 

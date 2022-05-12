@@ -1,8 +1,9 @@
 ﻿using Diplomski.DAL.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Diplomski.DAL.Interfaces;
 
 public interface IPackageRepository
 {
-    void Create(Package entity);
+    Package Create(Package entity);
 }
