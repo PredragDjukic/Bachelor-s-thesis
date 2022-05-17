@@ -24,6 +24,16 @@ namespace Diplomski.BLL.Services
         }
 
 
+        public User Get(string email)
+        {
+            User? user = _repo.Get(email);
+
+            if (user == null)
+                throw BusinessExceptions.UserDoesNotExistEmail;
+
+            return user;
+        }
+
         public User Create(UserRegisterDto dto)
         {
             this.ValidateUserRegisterDto(dto);
@@ -87,7 +97,7 @@ namespace Diplomski.BLL.Services
 
         public User VerifyEmail(int loggedUserId, SecretCodeUserDto dto)
         {
-            User user = this.GetById(loggedUserId);
+            User user = this.Get(loggedUserId);
 
             this.ValidateSecretCodeAndExpiry(user, dto);
 
@@ -110,7 +120,7 @@ namespace Diplomski.BLL.Services
 
         public void ResendSecretCode(int loggedUserId)
         {
-            User user = this.GetById(loggedUserId);
+            User user = this.Get(loggedUserId);
 
             user.SecretCode = CodeHelper.GenerateSecretCode();
             user.SecretCodeExpiry = CodeHelper.GenerateSecretCodeExpiryDate();
@@ -118,17 +128,7 @@ namespace Diplomski.BLL.Services
             _repo.Update(user);
         }
 
-        public UserReadDto GetExerciser(int id)
-        {
-            User? exerciser = _repo.GetExerciser(id);
-            
-            if(exerciser == null)
-                throw BusinessExceptions.ExerciserDoesNotExist;
-
-            return exerciser.ToReadDto();
-        }
-        
-        public UserReadDto GetTrainer(int id)
+        public UserReadDto GetTrainerRead(int id)
         {
             User? trainer = _repo.GetTrainer(id);
             
@@ -138,24 +138,44 @@ namespace Diplomski.BLL.Services
             return trainer.ToReadDto();
         }
 
-        public User Get(string email)
+        public User GetTrainer(int id)
         {
-            User? user = _repo.Get(email);
+            User? trainer = _repo.GetTrainer(id);
+            
+            if(trainer == null)
+                throw BusinessExceptions.TrainerDoesNotExist;
 
-            if (user == null)
-                throw BusinessExceptions.UserDoesNotExist;
-
-            return user;
+            return trainer;
         }
 
-        public UserReadDto Get(int id)
+        public UserReadDto GetExerciserRead(int id)
         {
-            User? user = GetById(id);
+            User? exerciser = _repo.GetExerciser(id);
+            
+            if(exerciser == null)
+                throw BusinessExceptions.ExerciserDoesNotExist;
+
+            return exerciser.ToReadDto();
+        }
+
+        public User GetExerciser(int id)
+        {
+            User? exerciser = _repo.GetExerciser(id);
+            
+            if(exerciser == null)
+                throw BusinessExceptions.ExerciserDoesNotExist;
+
+            return exerciser;
+        }
+
+        public UserReadDto GetRead(int id)
+        {
+            User? user = Get(id);
 
             return user.ToReadDto();
         }
         
-        private User GetById(int id)
+        public User Get(int id)
         {
             User? user = _repo.Get(id);
 

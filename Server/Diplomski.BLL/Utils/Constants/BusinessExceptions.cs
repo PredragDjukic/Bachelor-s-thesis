@@ -9,6 +9,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException UserDoesNotExist =>
             throw new BusinessException("User with provided Id does not exists", HttpStatusCode.BadRequest);
         
+        public static BusinessException UserDoesNotExistEmail =>
+            throw new BusinessException("User with provided email does not exists", HttpStatusCode.BadRequest);
+        
         public static BusinessException TrainerDoesNotExist =>
             throw new BusinessException("Trainer with provided Id does not exists", HttpStatusCode.BadRequest);
         

@@ -31,7 +31,7 @@ public class UserController : BaseController
     [Authorize(Policy = "UnverifiedEmail")]
     public ActionResult GetLoggedInData()
     {
-        UserReadDto user = _service.Get(this.CurrentUserId);
+        UserReadDto user = _service.GetRead(this.CurrentUserId);
 
         return Ok(user);
     }
