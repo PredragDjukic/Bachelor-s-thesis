@@ -35,7 +35,7 @@ public class PackageService : IPackageService
         return result.ToReadDto();
     }
 
-    public PackageReadDto Get(int id)
+    public PackageReadDto GetRead(int id)
     {
         Package? package = _repository.Get(id);
 
@@ -43,5 +43,15 @@ public class PackageService : IPackageService
             throw BusinessExceptions.PackageDoesNotExist;
 
         return package.ToReadDto();
+    }
+
+    public Package Get(int id)
+    {
+        Package? package = _repository.Get(id);
+
+        if (package == null)
+            throw BusinessExceptions.PackageDoesNotExist;
+
+        return package;
     }
 }
