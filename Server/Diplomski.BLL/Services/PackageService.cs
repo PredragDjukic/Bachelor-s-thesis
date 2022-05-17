@@ -1,5 +1,4 @@
 ﻿using Diplomski.BLL.DTOs.PackageDTOs;
-using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
@@ -22,11 +21,11 @@ public class PackageService : IPackageService
 
     public PackageReadDto Create(int trainerId, PackageCreateDto dto)
     {
-        UserReadDto user = _userService.GetTrainer(trainerId);
+        User user = _userService.GetTrainer(trainerId);
 
         Package package = new Package()
         {
-            TrainerId = trainerId,
+            TrainerId = user.Id,
             NumberOfSessions = dto.NumberOfSessions,
             Price = dto.Price
         };
