@@ -1,6 +1,5 @@
 ﻿using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Diplomski.DAL.Repositories;
 
@@ -32,26 +31,18 @@ public class PackageRepository : IPackageRepository
         return _context.Package.FirstOrDefault(e => e.Id == id);
     }
 
-    public Package Update(int id, Package entity)
+    public Package Update(Package entity)
     {
-        Package? package = _context.Package.FirstOrDefault(e => e.Id == id);
-
-        if (package == null) return package;
+        entity.UpdatedAt = DateTime.UtcNow;
         
-        package.NumberOfSessions = entity.NumberOfSessions;
-        package.Price = entity.Price;
-
+        _context.Package.Update(entity);
         _context.SaveChanges();
 
-        return package;
+        return entity;
     }
 
-    public void Delete(int id)
+    public void Delete(Package entity)
     {
-        Package? package = _context.Package.FirstOrDefault(e => e.Id == id);
-
-        if (package == null) return;
-
-        _context.Package.Remove(package);
+        _context.Package.Remove(entity);
     }
 }
