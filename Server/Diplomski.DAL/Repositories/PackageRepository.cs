@@ -44,5 +44,7 @@ public class PackageRepository : IPackageRepository
     public void Delete(Package entity)
     {
         _context.Package.Remove(entity);
+
+        _context.SaveChanges();
     }
 }

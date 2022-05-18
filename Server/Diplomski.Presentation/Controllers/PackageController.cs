@@ -31,11 +31,33 @@ public class PackageController : BaseController
 
     [HttpGet]
     [Authorize]
-    [Route(Routes.PackageById)]
+    [Route(Routes.PackageId)]
     public ActionResult Get([FromRoute] int id)
     {
         PackageReadDto result = _service.GetRead(id);
 
         return Ok(result);
     }
+    
+    [HttpPut]
+    [Authorize]
+    [Route(Routes.PackageId)]
+    public ActionResult Update([FromRoute] int id, [FromBody] PackageUpdateDto dto)
+    {
+        PackageReadDto result = _service.Update(CurrentUserId, id, dto);
+
+        return Ok(result);
+    }
+    
+    [HttpDelete]
+    [Authorize]
+    [Route(Routes.PackageId)]
+    public ActionResult Delete([FromRoute] int id)
+    {
+        _service.Delete(CurrentUserId, id);
+
+        return Ok();
+    }
+    
+    
 }

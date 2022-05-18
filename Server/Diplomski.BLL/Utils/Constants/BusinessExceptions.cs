@@ -55,6 +55,12 @@ namespace Diplomski.BLL.Utils.Constants
 
         public static BusinessException PackageDoesNotExist =>
             throw new BusinessException("Package with provided id does not exists", HttpStatusCode.NotFound);
+        
+        public static BusinessException CanNotDeleteOfAnotherTrainer =>
+            throw new BusinessException("Can not delete package from another trainer", HttpStatusCode.NotFound);
+        
+        public static BusinessException CanNotUpdateOfAnotherTrainer =>
+            throw new BusinessException("Can not update package from another trainer", HttpStatusCode.NotFound);
 
         #endregion
     }

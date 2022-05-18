@@ -14,6 +14,7 @@ create table Package
 	Id int primary key identity,
 	NumberOfSessions int not null,
 	Price decimal(12, 2) not null,
+	IsActive bit not null,
 	TrainerId int not null,
 	CreatedAt Date not null,
 	UpdatedAt Date not null

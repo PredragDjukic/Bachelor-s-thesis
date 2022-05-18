@@ -24,4 +24,9 @@ public class BundleRepository : IBundleRepository
 
         return entity;
     }
+
+    public bool ExistsByPackage(int packageId)
+    {
+        return _context.Bundle.Any(e => e.PackageId == packageId);
+    }
 }

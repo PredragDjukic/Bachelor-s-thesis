@@ -17,7 +17,7 @@
         
         //Package
         public const string Package = Base + "package/";
-        public const string PackageById = Package + "{id}/";
+        public const string PackageId = Package + "{id}/";
         
         //Bundle
         public const string Bundle = Base + "bundle/";
