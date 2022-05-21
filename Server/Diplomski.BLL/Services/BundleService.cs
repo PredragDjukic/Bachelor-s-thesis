@@ -1,6 +1,7 @@
 ﻿using Diplomski.BLL.DTOs.BundleDTOs;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
 
@@ -20,6 +21,28 @@ public class BundleService : IBundleService
         _packageService = packageService;
     }
 
+
+    public BundleReadDto GetRead(int userId, int id)
+    {
+        User user = _userService.Get(userId);
+        Bundle bundle = this.Get(id);
+
+        bool isUserRelatedToBundle = bundle.Package.TrainerId != userId && bundle.ExerciserId != userId;
+        if (isUserRelatedToBundle)
+            throw BusinessExceptions.CanNotAccessBundle;
+
+        return bundle.ToReadDto();
+    }
+
+    public Bundle Get(int id)
+    {
+        Bundle? bundle = _repo.Get(id);
+
+        if (bundle == null)
+            throw BusinessExceptions.BundleDoesNotExist;
+
+        return bundle;
+    }
 
     public BundleReadDto Create(int exerciserId, BundleCreateDto dto)
     {

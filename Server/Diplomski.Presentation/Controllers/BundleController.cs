@@ -27,4 +27,14 @@ public class BundleController : BaseController
 
         return Ok(result);
     }
+    
+    [HttpGet]
+    [Route(Routes.BundleId)]
+    [Authorize]
+    public ActionResult Get([FromRoute] int id)
+    {
+        BundleReadDto result = _service.GetRead(CurrentUserId, id);
+
+        return Ok(result);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Diplomski.DAL.Repositories;
 
@@ -23,6 +24,15 @@ public class BundleRepository : IBundleRepository
         _context.SaveChanges();
 
         return entity;
+    }
+
+    public Bundle? Get(int id)
+    {
+        Bundle? bundle = _context.Bundle
+            .Include(e => e.Package)
+            .FirstOrDefault(e => e.Id == id);
+
+        return bundle;
     }
 
     public bool ExistsByPackage(int packageId)

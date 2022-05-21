@@ -22,5 +22,6 @@
         
         //Bundle
         public const string Bundle = Base + "bundle/";
+        public const string BundleId = Bundle + "{id}/";
     }
 }

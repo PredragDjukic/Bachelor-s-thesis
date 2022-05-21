@@ -66,5 +66,15 @@ namespace Diplomski.BLL.Utils.Constants
             throw new BusinessException("List of packages is empty", HttpStatusCode.NoContent);
 
         #endregion
+        
+        #region Bundle
+        
+        public static BusinessException BundleDoesNotExist =>
+            throw new BusinessException("Bundle with provided Id does not exists", HttpStatusCode.NotFound);
+        
+        public static BusinessException CanNotAccessBundle =>
+            throw new BusinessException("Logged in user can not get this bundle", HttpStatusCode.BadRequest);
+        
+        #endregion
     }
 }
