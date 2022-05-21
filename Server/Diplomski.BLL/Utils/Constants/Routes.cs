@@ -18,6 +18,7 @@
         //Package
         public const string Package = Base + "package/";
         public const string PackageId = Package + "{id}/";
+        public const string PackagesActiveByTrainer = Package + "active-trainer/{trainerId}";
         
         //Bundle
         public const string Bundle = Base + "bundle/";

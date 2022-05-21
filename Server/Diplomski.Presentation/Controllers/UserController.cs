@@ -28,7 +28,7 @@ public class UserController : BaseController
     }
     
     [Route(Routes.LoggedInData)]
-    [Authorize(Policy = "UnverifiedEmail")]
+    [Authorize(Policy = "IdOnlyRequirement")]
     public ActionResult GetLoggedInData()
     {
         UserReadDto user = _service.GetRead(this.CurrentUserId);

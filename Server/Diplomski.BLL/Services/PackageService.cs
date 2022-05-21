@@ -21,6 +21,18 @@ public class PackageService : IPackageService
         _bundleRepository = bundleRepository;
     }
 
+    public IEnumerable<PackageReadDto> GetActivePackagesByTrainer(int trainerId)
+    {
+        User trainer = _userService.GetTrainer(trainerId);
+        
+        IEnumerable<Package> packages = _packageRepository.GetActiveByTrainer(trainer.Id);
+
+        if (!packages.Any())
+            throw BusinessExceptions.NoPackages;
+
+        return packages.ToReadDtos();
+    }
+
     public PackageReadDto Create(int trainerId, PackageCreateDto dto)
     {
         User user = _userService.GetTrainer(trainerId);

@@ -71,6 +71,13 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim("IsEmailVerified", "False");
         policy.Build();
     });
+    
+    options.AddPolicy("IdOnlyRequirement", policy =>
+    {
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim("Id");
+        policy.Build();
+    });
 });
 
 //TODO: Move DI to separate file

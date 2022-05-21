@@ -13,7 +13,18 @@ public class PackageRepository : IPackageRepository
         _context = context;
     }
 
-    
+
+    public IQueryable<Package> GetActiveByTrainer(int trainerId)
+    {
+        IQueryable<Package> packages= 
+            _context.Package.Where(e => 
+                e.TrainerId == trainerId &&
+                e.IsActive == true
+            );
+
+        return packages;
+    }
+
     public Package Create(Package entity)
     {   
         entity.CreatedAt = DateTime.UtcNow;

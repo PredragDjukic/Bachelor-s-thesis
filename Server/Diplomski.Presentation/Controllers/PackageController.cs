@@ -39,6 +39,16 @@ public class PackageController : BaseController
         return Ok(result);
     }
     
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.PackagesActiveByTrainer)]
+    public ActionResult GetActiveByTrainer(int trainerId)
+    {
+        IEnumerable<PackageReadDto> result = _service.GetActivePackagesByTrainer(trainerId);
+
+        return Ok(result);
+    }
+    
     [HttpPut]
     [Authorize]
     [Route(Routes.PackageId)]

@@ -11,7 +11,11 @@ internal static class PackageMapper
         NumberOfSessions = package.NumberOfSessions,
         Price = package.Price,
         TrainerId = package.TrainerId,
+        IsActive = package.IsActive,
         CreatedAt = package.CreatedAt,
         UpdatedAt = package.UpdatedAt
     };
+
+    internal static IEnumerable<PackageReadDto> ToReadDtos(this IEnumerable<Package> packages)
+        => packages.Select(e => e.ToReadDto());
 }

@@ -61,6 +61,9 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException CanNotUpdateOfAnotherTrainer =>
             throw new BusinessException("Can not update package from another trainer", HttpStatusCode.NotFound);
+        
+        public static BusinessException NoPackages =>
+            throw new BusinessException("List of packages is empty", HttpStatusCode.NoContent);
 
         #endregion
     }
