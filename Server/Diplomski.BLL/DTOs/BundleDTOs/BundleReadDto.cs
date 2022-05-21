@@ -1,4 +1,6 @@
-﻿namespace Diplomski.BLL.DTOs.BundleDTOs;
+﻿using Diplomski.BLL.DTOs.PackageDTOs;
+
+namespace Diplomski.BLL.DTOs.BundleDTOs;
 
 public class BundleReadDto
 {
@@ -9,4 +11,5 @@ public class BundleReadDto
     public bool? IsActive { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
+    public PackageReadDto? Package { get; set; }
 }

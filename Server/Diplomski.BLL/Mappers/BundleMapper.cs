@@ -13,6 +13,7 @@ internal static class BundleMapper
         ExerciserId = bundle.ExerciserId,
         IsActive = bundle.IsActive,
         CreatedAt = bundle.CreatedAt,
-        UpdatedAt = bundle.UpdatedAt
+        UpdatedAt = bundle.UpdatedAt,
+        Package = bundle.Package.ToReadDto() ?? null
     };
 }
