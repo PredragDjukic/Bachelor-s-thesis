@@ -6,5 +6,7 @@ public interface IBundleRepository
 {
     Bundle Create(Bundle entity);
     Bundle? Get(int id);
+    IQueryable<Bundle> GetActiveByTrainer(int trainerId);
+    IQueryable<Bundle> GetActiveByExerciser(int exerciserId);
     bool ExistsByPackage(int packageId);
 }

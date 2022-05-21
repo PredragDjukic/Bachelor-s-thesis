@@ -37,4 +37,24 @@ public class BundleController : BaseController
 
         return Ok(result);
     }
+    
+    [HttpGet]
+    [Route(Routes.BundleAllTrainer)]
+    [Authorize]
+    public ActionResult GetAllActiveByTrainer([FromRoute] int id)
+    {
+        IEnumerable<BundleReadDto> result = _service.GetActiveByTrainer(id);
+
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    [Route(Routes.BundleAllExerciser)]
+    [Authorize]
+    public ActionResult GetAllActiveByExerciser([FromRoute] int id)
+    {
+        IEnumerable<BundleReadDto> result = _service.GetActiveByExerciser(id);
+
+        return Ok(result);
+    }
 }

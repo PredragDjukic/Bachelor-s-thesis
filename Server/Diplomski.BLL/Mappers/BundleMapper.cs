@@ -16,4 +16,7 @@ internal static class BundleMapper
         UpdatedAt = bundle.UpdatedAt,
         Package = bundle.Package.ToReadDto() ?? null
     };
+
+    internal static IEnumerable<BundleReadDto> ToReadDtos(this IEnumerable<Bundle> bundles)
+        => bundles.Select(e => e.ToReadDto());
 }

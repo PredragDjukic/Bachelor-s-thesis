@@ -22,12 +22,33 @@ public class BundleService : IBundleService
     }
 
 
+    public IEnumerable<BundleReadDto> GetActiveByTrainer(int trainerId)
+    {
+        IEnumerable<Bundle> bundles = _repo.GetActiveByTrainer(trainerId);
+
+        if (!bundles.Any())
+            throw BusinessExceptions.NoBundles;
+
+        return bundles.ToReadDtos();
+    }
+
+    public IEnumerable<BundleReadDto> GetActiveByExerciser(int exerciserId)
+    {
+        IEnumerable<Bundle> bundles = _repo.GetActiveByExerciser(exerciserId);
+
+        if (!bundles.Any())
+            throw BusinessExceptions.NoBundles;
+
+        return bundles.ToReadDtos();
+    }
+
     public BundleReadDto GetRead(int userId, int id)
     {
         User user = _userService.Get(userId);
         Bundle bundle = this.Get(id);
 
-        bool isUserRelatedToBundle = bundle.Package.TrainerId != userId && bundle.ExerciserId != userId;
+        bool isUserRelatedToBundle = bundle.Package.TrainerId != userId &&
+                                     bundle.ExerciserId != userId;
         if (isUserRelatedToBundle)
             throw BusinessExceptions.CanNotAccessBundle;
 

@@ -75,6 +75,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException CanNotAccessBundle =>
             throw new BusinessException("Logged in user can not get this bundle", HttpStatusCode.BadRequest);
         
+        public static BusinessException NoBundles =>
+            throw new BusinessException("List of bundles is empty", HttpStatusCode.NoContent);
+        
         #endregion
     }
 }

@@ -35,6 +35,30 @@ public class BundleRepository : IBundleRepository
         return bundle;
     }
 
+    public IQueryable<Bundle> GetActiveByExerciser(int exerciserId)
+    {
+        IQueryable<Bundle> bundles = _context.Bundle
+            .Include(e => e.Package)
+            .Where(e => 
+                e.ExerciserId == exerciserId &&
+                e.IsActive == true
+            );
+
+        return bundles;
+    }
+
+    public IQueryable<Bundle> GetActiveByTrainer(int trainerId)
+    {
+        IQueryable<Bundle> bundles = _context.Bundle
+            .Include(e => e.Package)
+            .Where(e => 
+                e.Package.TrainerId == trainerId &&
+                e.IsActive == true
+            );
+
+        return bundles;
+    }
+
     public bool ExistsByPackage(int packageId)
     {
         return _context.Bundle.Any(e => e.PackageId == packageId);
