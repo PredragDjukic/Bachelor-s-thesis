@@ -1,7 +1,6 @@
 ﻿using Diplomski.BLL.DTOs.PackageDTOs;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Utils.Constants;
-using Diplomski.Presentation.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
