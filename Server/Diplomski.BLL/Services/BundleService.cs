@@ -55,16 +55,6 @@ public class BundleService : IBundleService
         return bundle.ToReadDto();
     }
 
-    public Bundle Get(int id)
-    {
-        Bundle? bundle = _repo.Get(id);
-
-        if (bundle == null)
-            throw BusinessExceptions.BundleDoesNotExist;
-
-        return bundle;
-    }
-
     public BundleReadDto Create(int exerciserId, BundleCreateDto dto)
     {
         User exerciser = _userService.GetExerciser(exerciserId);
@@ -84,4 +74,28 @@ public class BundleService : IBundleService
 
         return result.ToReadDto();
     }
+
+    public void Delete(int userId, int id)
+    {
+        User exerciser = _userService.GetExerciser(userId);
+        Bundle? bundle = Get(id);
+
+        if (bundle.ExerciserId != exerciser.Id)
+            throw BusinessExceptions.CanNotDeleteBundleFromAnother;
+        
+        ///TODO: Check foreign key when sessions are implemented
+
+        _repo.Delete(bundle);
+    }
+    
+    public Bundle Get(int id)
+    {
+        Bundle? bundle = _repo.Get(id);
+
+        if (bundle == null)
+            throw BusinessExceptions.BundleDoesNotExist;
+
+        return bundle;
+    }
+
 }

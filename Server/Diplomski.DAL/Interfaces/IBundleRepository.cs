@@ -9,4 +9,5 @@ public interface IBundleRepository
     IQueryable<Bundle> GetActiveByTrainer(int trainerId);
     IQueryable<Bundle> GetActiveByExerciser(int exerciserId);
     bool ExistsByPackage(int packageId);
+    void Delete(Bundle entity);
 }

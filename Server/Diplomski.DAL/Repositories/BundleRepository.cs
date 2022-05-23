@@ -63,4 +63,11 @@ public class BundleRepository : IBundleRepository
     {
         return _context.Bundle.Any(e => e.PackageId == packageId);
     }
+
+    public void Delete(Bundle entity)
+    {
+        _context.Bundle.Remove(entity);
+
+        _context.SaveChanges();
+    }
 }

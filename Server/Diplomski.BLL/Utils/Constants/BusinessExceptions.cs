@@ -72,6 +72,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException BundleDoesNotExist =>
             throw new BusinessException("Bundle with provided Id does not exists", HttpStatusCode.NotFound);
         
+        public static BusinessException CanNotDeleteBundleFromAnother =>
+            throw new BusinessException("Can not delete bundle from another user", HttpStatusCode.NotFound);
+        
         public static BusinessException CanNotAccessBundle =>
             throw new BusinessException("Logged in user can not get this bundle", HttpStatusCode.BadRequest);
         

@@ -10,4 +10,5 @@ public interface IBundleService
     BundleReadDto GetRead(int userId, int id);
     Bundle Get(int id);
     BundleReadDto Create(int exerciserId, BundleCreateDto dto);
+    void Delete(int userId, int id);
 }

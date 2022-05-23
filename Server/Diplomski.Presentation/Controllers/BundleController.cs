@@ -57,4 +57,14 @@ public class BundleController : BaseController
 
         return Ok(result);
     }
+
+    [HttpDelete]
+    [Route(Routes.BundleId)]
+    [Authorize]
+    public ActionResult Delete([FromRoute] int id)
+    {
+        _service.Delete(CurrentUserId, id);
+
+        return Ok();
+    }
 }
