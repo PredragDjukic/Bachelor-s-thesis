@@ -34,6 +34,7 @@ public class SessionService : ISessionService
         {
             TrainerId = trainer.Id,
             StartDateTime = dto.StartDateTime,
+            EndDateTime = dto.StartDateTime.AddHours(1),
             Location = dto.Location,
             Status = Convert.ToInt32(SessionStatus.Available)
         };

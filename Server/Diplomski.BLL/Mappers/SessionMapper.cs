@@ -9,7 +9,8 @@ internal static class SessionMapper
     {
         Id = session.Id,
         SessionNumber = session.SessionNumber,
-        DateAndTime = session.DateAndTime,
+        StartDateTime = session.StartDateTime,
+        EndDateTime = session.EndDateTime,
         Location = session.Location,
         Status = session.Status,
         ExerciserId = session.ExerciserId,

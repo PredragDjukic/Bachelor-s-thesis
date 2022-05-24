@@ -82,5 +82,12 @@ namespace Diplomski.BLL.Utils.Constants
             throw new BusinessException("List of bundles is empty", HttpStatusCode.NoContent);
         
         #endregion
+        
+        #region Session
+        
+        public static BusinessException SessionStartInThePast =>
+            throw new BusinessException("Session start can not be in the past", HttpStatusCode.BadRequest);
+        
+        #endregion
     }
 }
