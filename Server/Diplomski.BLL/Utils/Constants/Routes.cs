@@ -25,5 +25,8 @@
         public const string BundleId = Bundle + "{id}/";
         public const string BundleAllTrainer = Bundle + "trainer/{id}/";
         public const string BundleAllExerciser = Bundle + "exerciser/{id}/";
+        
+        //Sessions
+        public const string Sesssion = Base + "session/";
     }
 }

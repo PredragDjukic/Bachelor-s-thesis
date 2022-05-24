@@ -88,6 +88,7 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IBundleService, BundleService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 
 //ExternalServices
 builder.Services.AddScoped<ISendGridService, SendGridService>();
@@ -99,6 +100,7 @@ builder.Services.AddScoped<ConcurrencyDbContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IBundleRepository, BundleRepository>();
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 
 var app = builder.Build();
 
