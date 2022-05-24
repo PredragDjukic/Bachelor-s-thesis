@@ -8,7 +8,8 @@ namespace Diplomski.DAL.Entities
         public int Id { get; set; }
         public int? SessionNumber { get; set; }
         public string Location { get; set; } = null!;
-        public DateTime DateAndTime { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
         public int Status { get; set; }
         public int TrainerId { get; set; }
         public int? ExerciserId { get; set; }

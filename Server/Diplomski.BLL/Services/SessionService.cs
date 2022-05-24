@@ -1,7 +1,9 @@
 ﻿using Diplomski.BLL.DTOs.SessionsDTOs;
 using Diplomski.BLL.Enums;
+using Diplomski.BLL.Exceptions;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
 
@@ -23,12 +25,15 @@ public class SessionService : ISessionService
     public SessionReadDto OpenSession(int trainerId, SessionCreateDto dto)
     {
         User trainer = _userService.GetTrainer(trainerId);
-        //Session can not be in the past
+
+        if (dto.StartDateTime < DateTime.UtcNow)
+            throw BusinessExceptions.SessionStartInThePast;
+        
         //Session can not be in the same time
         Session session = new Session()
         {
             TrainerId = trainer.Id,
-            DateAndTime = dto.DateAndTime,
+            StartDateTime = dto.StartDateTime,
             Location = dto.Location,
             Status = Convert.ToInt32(SessionStatus.Available)
         };

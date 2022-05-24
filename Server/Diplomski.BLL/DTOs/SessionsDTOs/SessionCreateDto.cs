@@ -3,5 +3,5 @@
 public class SessionCreateDto
 {
     public string Location { get; set; }
-    public DateTime DateAndTime { get; set; }
+    public DateTime StartDateTime { get; set; }
 }
