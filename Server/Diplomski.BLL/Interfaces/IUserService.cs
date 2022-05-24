@@ -15,5 +15,6 @@ namespace Diplomski.BLL.Interfaces
         User Create(UserRegisterDto dto);
         User VerifyEmail(int loggedUserId, SecretCodeUserDto dto);
         void ResendSecretCode(int loggedUserId);
+        void Delete(int userId);
     }
 }

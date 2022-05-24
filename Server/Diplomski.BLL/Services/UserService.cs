@@ -184,6 +184,12 @@ namespace Diplomski.BLL.Services
 
             return user;
         }
+        
+        public void Delete(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
 

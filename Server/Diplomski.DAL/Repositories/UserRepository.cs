@@ -66,16 +66,20 @@ namespace Diplomski.DAL.Repositories
             return exists;
         }
 
-        public User Update(User user)
+        public User Update(User entity)
         {
-            User? entity = _context.User.FirstOrDefault(e => e.Id == user.Id);
-            
             entity.UpdatedAt = DateTime.UtcNow;
-            entity.ToUpdate(user);
 
+            _context.User.Update(entity);
             _context.SaveChanges();
 
             return entity;
+        }
+
+        public void Delete(User entity)
+        {
+            _context.User.Remove(entity);
+            _context.SaveChanges();
         }
     }
 }

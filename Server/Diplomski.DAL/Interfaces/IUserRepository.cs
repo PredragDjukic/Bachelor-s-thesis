@@ -11,6 +11,7 @@ namespace Diplomski.DAL.Interfaces
         void Create(User entity);
         bool CheckIfExistsByEmail(string email);
         bool CheckIfExistsByPhoneNumber(string phoneNumber);
-        User Update(User user);
+        User Update(User entity);
+        void Delete(User entity);
     }
 }
