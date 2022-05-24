@@ -88,6 +88,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException SessionStartInThePast =>
             throw new BusinessException("Session start can not be in the past", HttpStatusCode.BadRequest);
         
+        public static BusinessException SessionOverlap =>
+            throw new BusinessException("Session overlaps with existing sessions", HttpStatusCode.BadRequest);
+        
         #endregion
     }
 }

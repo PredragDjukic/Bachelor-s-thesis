@@ -24,4 +24,20 @@ public class SessionRepository : ISessionRepository
 
         return entity;
     }
+
+    public bool DoesSessionOverlap(int trainerId, DateTime start, DateTime end)
+    {
+        //Does not work
+        bool contains = _context.Session.Any(
+            e => 
+                ((start >= e.StartDateTime && end <= e.EndDateTime) ||
+                 (start <= e.StartDateTime && end >= e.EndDateTime) ||
+                 (start <= e.StartDateTime && end > e.StartDateTime) ||
+                 (start < e.EndDateTime && end >= e.EndDateTime))
+                &&
+                e.TrainerId == trainerId
+        );
+
+        return contains;
+    }
 }

@@ -28,8 +28,14 @@ public class SessionService : ISessionService
 
         if (dto.StartDateTime < DateTime.UtcNow)
             throw BusinessExceptions.SessionStartInThePast;
-        
-        //Session can not be in the same time
+
+        if (_repository.DoesSessionOverlap(
+                trainer.Id,
+                dto.StartDateTime,
+                dto.StartDateTime.AddHours(1))
+            )
+            throw BusinessExceptions.SessionOverlap;
+
         Session session = new Session()
         {
             TrainerId = trainer.Id,
