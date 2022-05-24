@@ -64,6 +64,22 @@ namespace Diplomski.DAL.Entities
                 entity.Property(e => e.Location).HasMaxLength(250);
 
                 entity.Property(e => e.UpdateAt).HasColumnType("date");
+
+                entity.HasOne(d => d.Exerciser)
+                    .WithMany(p => p.SessionExerciser)
+                    .HasForeignKey(d => d.ExerciserId)
+                    .HasConstraintName("FK_Session_Exerciser");
+
+                entity.HasOne(d => d.Package)
+                    .WithMany(p => p.Session)
+                    .HasForeignKey(d => d.PackageId)
+                    .HasConstraintName("FK_Session_Package");
+
+                entity.HasOne(d => d.Trainer)
+                    .WithMany(p => p.SessionTrainer)
+                    .HasForeignKey(d => d.TrainerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Session_Trainer");
             });
 
             modelBuilder.Entity<User>(entity =>

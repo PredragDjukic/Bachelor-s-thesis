@@ -15,5 +15,9 @@ namespace Diplomski.DAL.Entities
         public int? PackageId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
+
+        public virtual User? Exerciser { get; set; }
+        public virtual Package? Package { get; set; }
+        public virtual User Trainer { get; set; } = null!;
     }
 }

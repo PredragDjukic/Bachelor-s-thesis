@@ -8,6 +8,7 @@ namespace Diplomski.DAL.Entities
         public Package()
         {
             Bundle = new HashSet<Bundle>();
+            Session = new HashSet<Session>();
         }
 
         public int Id { get; set; }
@@ -19,5 +20,6 @@ namespace Diplomski.DAL.Entities
         public DateTime UpdatedAt { get; set; }
 
         public virtual ICollection<Bundle> Bundle { get; set; }
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

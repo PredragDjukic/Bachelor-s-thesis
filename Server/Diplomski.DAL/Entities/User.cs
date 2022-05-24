@@ -8,6 +8,8 @@ namespace Diplomski.DAL.Entities
         public User()
         {
             Bundle = new HashSet<Bundle>();
+            SessionExerciser = new HashSet<Session>();
+            SessionTrainer = new HashSet<Session>();
         }
 
         public int Id { get; set; }
@@ -30,5 +32,7 @@ namespace Diplomski.DAL.Entities
         public DateTime UpdatedAt { get; set; }
 
         public virtual ICollection<Bundle> Bundle { get; set; }
+        public virtual ICollection<Session> SessionExerciser { get; set; }
+        public virtual ICollection<Session> SessionTrainer { get; set; }
     }
 }
