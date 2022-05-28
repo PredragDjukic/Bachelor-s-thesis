@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Diplomski.Presentation.Controllers;
 
+[ApiController]
 public class SessionController : BaseController
 {
     private readonly ISessionService _service;

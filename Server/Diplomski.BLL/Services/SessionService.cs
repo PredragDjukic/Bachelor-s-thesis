@@ -26,15 +26,7 @@ public class SessionService : ISessionService
     {
         User trainer = _userService.GetTrainer(trainerId);
 
-        if (dto.StartDateTime < DateTime.UtcNow)
-            throw BusinessExceptions.SessionStartInThePast;
-
-        if (_repository.DoesSessionOverlap(
-                trainer.Id,
-                dto.StartDateTime,
-                dto.StartDateTime.AddHours(1))
-            )
-            throw BusinessExceptions.SessionOverlap;
+        this.CheckSessionTime(trainer.Id, dto);
 
         Session session = new Session()
         {
@@ -48,5 +40,20 @@ public class SessionService : ISessionService
         session = _repository.Create(session);
 
         return session.ToReadDto();
+    }
+
+    private void CheckSessionTime(int trainerId, SessionCreateDto dto)
+    {
+        if (dto.StartDateTime < DateTime.UtcNow)
+            throw BusinessExceptions.SessionStartInThePast;
+
+        if (
+            _repository.DoesSessionOverlap(
+                trainerId,
+                dto.StartDateTime,
+                dto.StartDateTime.AddHours(1)
+            )
+        )
+            throw BusinessExceptions.SessionOverlap;
     }
 }

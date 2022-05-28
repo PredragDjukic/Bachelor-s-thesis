@@ -27,15 +27,14 @@ public class SessionRepository : ISessionRepository
 
     public bool DoesSessionOverlap(int trainerId, DateTime start, DateTime end)
     {
+        IQueryable<Session> session = _context.Session.Where(e => trainerId == e.TrainerId);
         //Does not work
-        bool contains = _context.Session.Any(
+        bool contains = session.Any(
             e => 
-                ((start >= e.StartDateTime && end <= e.EndDateTime) ||
+                (start >= e.StartDateTime && end <= e.EndDateTime) ||
                  (start <= e.StartDateTime && end >= e.EndDateTime) ||
                  (start <= e.StartDateTime && end > e.StartDateTime) ||
-                 (start < e.EndDateTime && end >= e.EndDateTime))
-                &&
-                e.TrainerId == trainerId
+                 (start < e.EndDateTime && end >= e.EndDateTime)
         );
 
         return contains;

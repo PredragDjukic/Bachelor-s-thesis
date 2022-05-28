@@ -59,11 +59,11 @@ namespace Diplomski.DAL.Entities
             {
                 entity.Property(e => e.CreatedAt).HasColumnType("date");
 
-                entity.Property(e => e.EndDateTime).HasColumnType("date");
+                entity.Property(e => e.EndDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Location).HasMaxLength(250);
 
-                entity.Property(e => e.StartDateTime).HasColumnType("date");
+                entity.Property(e => e.StartDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdateAt).HasColumnType("date");
 
