@@ -14,6 +14,7 @@
         public const string User = Base + "user/";
         public const string LoggedInData = User + "get-data/";
         public const string ResendSecretCode = User + "resend-code/";
+        public const string UserCard = User + "card/";
         
         //Package
         public const string Package = Base + "package/";

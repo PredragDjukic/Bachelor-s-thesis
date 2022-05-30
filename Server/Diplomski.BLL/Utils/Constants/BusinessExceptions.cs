@@ -98,6 +98,9 @@ namespace Diplomski.BLL.Utils.Constants
 
         public static BusinessException TrainerCanNotBeCustomer =>
             throw new BusinessException("Trainer can not have a customer account", HttpStatusCode.BadRequest);
+        
+        public static BusinessException UserDoesNotHaveCustomerId =>
+            throw new BusinessException("Provided user does not have a customerId", HttpStatusCode.BadRequest);
 
         #endregion
     }

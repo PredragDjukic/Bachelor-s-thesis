@@ -1,6 +1,5 @@
 ﻿using Diplomski.BLL.Interfaces.External;
 using Diplomski.BLL.Utils.Models;
-using Diplomski.DAL.Entities;
 using Stripe;
 
 namespace Diplomski.BLL.Services.External;
@@ -30,5 +29,26 @@ public class StripeService : IStripeService
         Customer customer = service.Create(options);
 
         return customer.Id;
+    }
+
+    public void AddCard(string customerId, string paymentMethod)
+    {
+        CardCreateOptions options = new CardCreateOptions()
+        {
+            Source = paymentMethod
+        };
+
+        CardService service = new CardService();
+
+        Card card = service.Create(customerId, options);
+    }
+
+    public StripeList<Card> GetCards(string customerId)
+    {
+        CardService service = new CardService();
+
+        StripeList<Card> cards = service.List(customerId);
+
+        return cards;
     }
 }

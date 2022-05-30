@@ -1,5 +1,8 @@
-﻿using Diplomski.BLL.DTOs.UserDtos;
+﻿using Diplomski.BLL.DTOs.PaymentDTOs;
+using Diplomski.BLL.DTOs.UserDtos;
+using Diplomski.BLL.Utils.Models;
 using Diplomski.DAL.Entities;
+using Stripe;
 
 namespace Diplomski.BLL.Interfaces
 {
@@ -16,5 +19,7 @@ namespace Diplomski.BLL.Interfaces
         User VerifyEmail(int loggedUserId, SecretCodeUserDto dto);
         void ResendSecretCode(int loggedUserId);
         void Delete(int userId);
+        void AddCardToUser(int id, CardModel model);
+        IEnumerable<CardReadDto> GetUserCards(int id);
     }
 }

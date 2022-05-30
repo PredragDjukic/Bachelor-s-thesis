@@ -1,12 +1,14 @@
-﻿using Diplomski.BLL.DTOs.UserDtos;
+﻿using Diplomski.BLL.DTOs.PaymentDTOs;
+using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Extensions;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
-using Diplomski.BLL.Interfaces.External;
 using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
+using Diplomski.BLL.Utils.Models;
 using Diplomski.DAL.Entities;
 using Diplomski.DAL.Interfaces;
+using Stripe;
 
 namespace Diplomski.BLL.Services
 {
@@ -136,6 +138,23 @@ namespace Diplomski.BLL.Services
 
             _repo.Update(user);
         }
+                
+        public void AddCardToUser(int id, CardModel model)
+        {
+            User? exerciser = this.GetExerciser(id);
+            
+            _paymentService.AddCard(exerciser, model);
+        }
+
+        public IEnumerable<CardReadDto> GetUserCards(int id)
+        {
+            User? exerciser = this.GetExerciser(id);
+
+            var cards = _paymentService.GetCards(exerciser);
+
+            return cards.ToReadDtos();
+        }
+
 
         public UserReadDto GetTrainerRead(int id)
         {
