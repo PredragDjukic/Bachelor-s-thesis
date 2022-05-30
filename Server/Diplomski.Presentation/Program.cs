@@ -89,9 +89,11 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IBundleService, BundleService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 //ExternalServices
 builder.Services.AddScoped<ISendGridService, SendGridService>();
+builder.Services.AddScoped<IStripeService, StripeService>();
 
 //DbContext
 builder.Services.AddScoped<ConcurrencyDbContext>();

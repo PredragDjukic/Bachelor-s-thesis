@@ -35,6 +35,7 @@ namespace Diplomski.BLL.Utils.Constants
 
         public static BusinessException UserPhoneNumberAlreadyExistsException =>
             throw new BusinessException("User with provider phone number already exists", HttpStatusCode.BadRequest);
+        
         public static BusinessException UsersAgeException =>
             throw new BusinessException("User must be older then 14 years", HttpStatusCode.BadRequest);
         #endregion
@@ -91,6 +92,13 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException SessionOverlap =>
             throw new BusinessException("Session overlaps with existing sessions", HttpStatusCode.BadRequest);
         
+        #endregion
+
+        #region Payments
+
+        public static BusinessException TrainerCanNotBeCustomer =>
+            throw new BusinessException("Trainer can not have a customer account", HttpStatusCode.BadRequest);
+
         #endregion
     }
 }

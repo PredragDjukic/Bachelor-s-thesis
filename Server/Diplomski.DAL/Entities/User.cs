@@ -30,6 +30,7 @@ namespace Diplomski.DAL.Entities
         public DateTime DateOfBirth { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public string? CustomerId { get; set; }
 
         public virtual ICollection<Bundle> Bundle { get; set; }
         public virtual ICollection<Session> SessionExerciser { get; set; }

@@ -2,6 +2,7 @@
 using Diplomski.BLL.Extensions;
 using Diplomski.BLL.Helpers;
 using Diplomski.BLL.Interfaces;
+using Diplomski.BLL.Interfaces.External;
 using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
@@ -14,13 +15,19 @@ namespace Diplomski.BLL.Services
         private readonly IUserRepository _repo;
 
         private readonly IEmailService _emailService;
+        private readonly IPaymentService _paymentService;
 
 
-        public UserService(IUserRepository repo, IEmailService emailService)
+        public UserService(
+            IUserRepository repo,
+            IEmailService emailService,
+            IPaymentService paymentService
+        )
         {
             this._repo = repo;
 
             this._emailService = emailService;
+            _paymentService = paymentService;
         }
 
 
@@ -58,6 +65,8 @@ namespace Diplomski.BLL.Services
                 DateOfBirth = dto.DateOfBirth,
             };
 
+            user.CustomerId = _paymentService.AddCustomer(user);
+            
             _repo.Create(user);
 
             _emailService.SendVerificationCode(user.Email, user.SecretCode);

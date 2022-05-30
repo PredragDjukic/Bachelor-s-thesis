@@ -94,6 +94,8 @@ namespace Diplomski.DAL.Entities
 
                 entity.Property(e => e.CreatedAt).HasColumnType("date");
 
+                entity.Property(e => e.CustomerId).HasMaxLength(55);
+
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
                 entity.Property(e => e.Email).HasMaxLength(100);
