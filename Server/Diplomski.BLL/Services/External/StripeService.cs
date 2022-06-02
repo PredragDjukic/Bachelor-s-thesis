@@ -31,6 +31,15 @@ public class StripeService : IStripeService
         return customer.Id;
     }
 
+    public Customer GetCustomer(string id)
+    {
+        CustomerService service = new CustomerService();
+
+        Customer customer = service.Get(id);
+
+        return customer;
+    }
+
     public void AddCard(string customerId, string paymentMethod)
     {
         CardCreateOptions options = new CardCreateOptions()
@@ -50,5 +59,14 @@ public class StripeService : IStripeService
         StripeList<Card> cards = service.List(customerId);
 
         return cards;
+    }
+
+    public Card GetCard(string customerId, string cardId)
+    {
+        CardService service = new CardService();
+
+        Card card = service.Get(customerId, cardId);
+
+        return card;
     }
 }

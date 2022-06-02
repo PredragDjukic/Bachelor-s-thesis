@@ -155,6 +155,23 @@ namespace Diplomski.BLL.Services
             return cards.ToReadDtos();
         }
 
+        public CardReadDto GetDefaultCard(int id)
+        {
+            User? exerciser = this.GetExerciser(id);
+
+            Card card = _paymentService.GetDefault(exerciser);
+
+            return card.ToReadDto();
+        }
+
+        public CardReadDto SetUpDefaultCard(int id, string cardId)
+        {
+            User? exerciser = this.GetExerciser(id);
+
+            Card card = _paymentService.SetUpDefault(exerciser, cardId);
+
+            return card.ToReadDto();
+        }
 
         public UserReadDto GetTrainerRead(int id)
         {

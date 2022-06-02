@@ -2,7 +2,6 @@
 using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Utils.Models;
 using Diplomski.DAL.Entities;
-using Stripe;
 
 namespace Diplomski.BLL.Interfaces
 {
@@ -21,5 +20,7 @@ namespace Diplomski.BLL.Interfaces
         void Delete(int userId);
         void AddCardToUser(int id, CardModel model);
         IEnumerable<CardReadDto> GetUserCards(int id);
+        CardReadDto GetDefaultCard(int id);
+        CardReadDto SetUpDefaultCard(int id, string cardId);
     }
 }

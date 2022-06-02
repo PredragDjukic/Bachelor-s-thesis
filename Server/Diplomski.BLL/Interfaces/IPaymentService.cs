@@ -9,4 +9,6 @@ public interface IPaymentService
     string AddCustomer(User user);
     void AddCard(User user, CardModel model);
     StripeList<Card> GetCards(User user);
+    Card SetUpDefault(User user, string cardId);
+    Card GetDefault(User user);
 }

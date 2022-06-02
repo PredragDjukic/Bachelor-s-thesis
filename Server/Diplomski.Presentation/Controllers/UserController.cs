@@ -1,4 +1,5 @@
-﻿using Diplomski.BLL.DTOs.UserDtos;
+﻿using Diplomski.BLL.DTOs.PaymentDTOs;
+using Diplomski.BLL.DTOs.UserDtos;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Utils.Constants;
 using Diplomski.BLL.Utils.Models;
@@ -55,6 +56,26 @@ public class UserController : BaseController
     public ActionResult AddCard()
     {
         var result = _service.GetUserCards(this.CurrentUserId);
+
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.UserDefaultCard)]
+    public ActionResult GetUserDefault()
+    {
+        var result = _service.GetDefaultCard(this.CurrentUserId);
+
+        return Ok(result);
+    }
+
+    [HttpPut]
+    [Authorize]
+    [Route(Routes.UserDefaultCard)]
+    public ActionResult SetUpUserDefaultCard([FromBody] CardIdDto card)
+    {
+        var result = _service.SetUpDefaultCard(this.CurrentUserId, card.cardId);
 
         return Ok(result);
     }

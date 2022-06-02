@@ -52,4 +52,33 @@ public class PaymentService : IPaymentService
         
         return _stripeService.GetCards(user.CustomerId);
     }
+
+    public Card SetUpDefault(User user, string cardId)
+    {
+        if (user.CustomerId == null)
+            throw BusinessExceptions.UserDoesNotHaveCustomerId;
+        
+        Customer customer = _stripeService.GetCustomer(user.CustomerId);
+        Card card = _stripeService.GetCard(customer.Id, cardId);
+
+        CustomerService service = new CustomerService();
+        CustomerUpdateOptions options = new CustomerUpdateOptions()
+        {
+            DefaultSource = card.Id
+        };
+
+        service.Update(customer.Id, options);
+
+        return card;
+    }
+
+    public Card GetDefault(User user)
+    {
+        if (user.CustomerId == null)
+            throw BusinessExceptions.UserDoesNotHaveCustomerId;
+        
+        Customer customer = _stripeService.GetCustomer(user.CustomerId);
+
+        return _stripeService.GetCard(customer.Id, customer.DefaultSourceId);
+    }
 }
