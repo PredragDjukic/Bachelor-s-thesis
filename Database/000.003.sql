@@ -6,7 +6,7 @@ go
 print('---CREATE Session---')
 create table Session 
 (
-	Id int identity primary key,
+	Id int not null identity primary key,
 	SessionNumber int null,
 	Location nvarchar(250) not null,
 	StartDateTime datetime not null,
@@ -15,8 +15,8 @@ create table Session
 	TrainerId int not null,
 	ExerciserId int null,
 	PackageId int null,
-	CreatedAt Date not null,
-	UpdateAt Date not null
+	CreatedAt datetime not null,
+	UpdateAt datetime not null
 )
 
 alter table Session add constraint CK_Session_SessionNumber check(SessionNumber > 0 and SessionNumber <= 30);
@@ -24,3 +24,17 @@ alter table Session add constraint CK_Session_SessionNumber check(SessionNumber 
 alter table Session add constraint FK_Session_Trainer foreign key (TrainerId) references [User](id);
 alter table Session add constraint FK_Session_Exerciser foreign key (ExerciserId) references [User](id);
 alter table Session add constraint FK_Session_Package foreign key (PackageId) references Package(id);
+
+print('---CREATE Payment---');
+create table Payment
+(
+	Id int identity not null primary key,
+	Price decimal not null,
+	ExerciserId int not null,
+	TrainerId int not null,
+	CreatedAt datetime not null,
+	UpdateAt datetime not null
+)
+
+alter table Payment add constraint FK_Payment_Trainer foreign key (TrainerId) references [User](id);
+alter table Payment add constraint FK_Payment_Exerciser foreign key (ExerciserId) references [User](id);

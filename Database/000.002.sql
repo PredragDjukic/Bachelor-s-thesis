@@ -16,8 +16,8 @@ create table Package
 	Price decimal(12, 2) not null,
 	IsActive bit not null,
 	TrainerId int not null,
-	CreatedAt Date not null,
-	UpdatedAt Date not null
+	CreatedAt datetime not null,
+	UpdatedAt datetime not null
 )
 
 alter table Package add constraint CK_Package_NumberOfSessions check (NumberOfSessions > 0 AND NumberOFSessions < 30);
@@ -31,8 +31,8 @@ create table Bundle
 	PackageId int not null,
 	ExerciserId int not null,
 	IsActive bit not null,
-	CreatedAt Date not null,
-	UpdatedAt Date not null
+	CreatedAt datetime not null,
+	UpdatedAt datetime not null
 )
 go
 

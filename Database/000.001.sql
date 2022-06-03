@@ -21,8 +21,8 @@ create table [User]
 	AreTermsAndServicesAccepted bit not null,
 	IsPrivacyPolicyAccepted bit not null,
 	DateOfBirth Date not null,
-	CreatedAt Date not null,
-	UpdatedAt Date not null
+	CreatedAt datetime not null,
+	UpdatedAt datetime not null
 )
 
 alter table [User] add constraint UC_User_Email unique (Email)
