@@ -5,6 +5,11 @@ namespace Diplomski.DAL.Entities
 {
     public partial class Bundle
     {
+        public Bundle()
+        {
+            Session = new HashSet<Session>();
+        }
+
         public int Id { get; set; }
         public int SessionsLeft { get; set; }
         public int PackageId { get; set; }
@@ -15,5 +20,6 @@ namespace Diplomski.DAL.Entities
 
         public virtual User Exerciser { get; set; } = null!;
         public virtual Package Package { get; set; } = null!;
+        public virtual ICollection<Session> Session { get; set; }
     }
 }

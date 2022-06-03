@@ -26,4 +26,15 @@ public class SessionController : BaseController
 
         return Ok(result);
     }
+
+    [HttpPatch]
+    [Authorize]
+    [Route(Routes.Sesssion)]
+    public ActionResult Reserve([FromBody] SessionReserveDto dto)
+    {
+        SessionReadDto result = _service.Reserve(this.CurrentUserId, dto);
+
+        return Ok(result);
+    }
+    
 }

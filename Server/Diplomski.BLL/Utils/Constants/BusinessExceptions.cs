@@ -82,6 +82,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException NoBundles =>
             throw new BusinessException("List of bundles is empty", HttpStatusCode.NoContent);
         
+        public static BusinessException BundleIsInactive =>
+            throw new BusinessException("Bundle is inactive", HttpStatusCode.BadRequest);
+        
         #endregion
         
         #region Session
@@ -91,6 +94,9 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException SessionOverlap =>
             throw new BusinessException("Session overlaps with existing sessions", HttpStatusCode.BadRequest);
+        
+        public static BusinessException SessionDoesNotExist =>
+            throw new BusinessException("Session with provided id does not exists", HttpStatusCode.NotFound);
         
         #endregion
 

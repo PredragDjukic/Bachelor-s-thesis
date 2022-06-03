@@ -79,7 +79,7 @@ namespace Diplomski.DAL.Entities
 
             modelBuilder.Entity<Session>(entity =>
             {
-                entity.Property(e => e.CreatedAt).HasColumnType("date");
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.EndDateTime).HasColumnType("datetime");
 
@@ -87,17 +87,17 @@ namespace Diplomski.DAL.Entities
 
                 entity.Property(e => e.StartDateTime).HasColumnType("datetime");
 
-                entity.Property(e => e.UpdateAt).HasColumnType("date");
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Bundle)
+                    .WithMany(p => p.Session)
+                    .HasForeignKey(d => d.BundleId)
+                    .HasConstraintName("FK_Session_Bundle");
 
                 entity.HasOne(d => d.Exerciser)
                     .WithMany(p => p.SessionExerciser)
                     .HasForeignKey(d => d.ExerciserId)
                     .HasConstraintName("FK_Session_Exerciser");
-
-                entity.HasOne(d => d.Package)
-                    .WithMany(p => p.Session)
-                    .HasForeignKey(d => d.PackageId)
-                    .HasConstraintName("FK_Session_Package");
 
                 entity.HasOne(d => d.Trainer)
                     .WithMany(p => p.SessionTrainer)

@@ -25,6 +25,22 @@ public class SessionRepository : ISessionRepository
         return entity;
     }
 
+    public Session? Get(int id)
+    {
+        Session session = _context.Session.FirstOrDefault(e => e.Id == id);
+
+        return session;
+    }
+
+    public Session Update(Session entity)
+    {
+        entity.UpdateAt = DateTime.UtcNow;
+
+        _context.Session.Update(entity);
+
+        return entity;
+    }
+
     public bool DoesSessionOverlap(int trainerId, DateTime start, DateTime end)
     {
         IQueryable<Session> session = _context.Session.Where(e => trainerId == e.TrainerId);

@@ -5,4 +5,5 @@ namespace Diplomski.BLL.Interfaces;
 public interface ISessionService
 {
     SessionReadDto OpenSession(int trainerId, SessionCreateDto dto);
+    SessionReadDto Reserve(int exerciserId, SessionReserveDto dto);
 }

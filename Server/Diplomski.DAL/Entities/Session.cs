@@ -13,12 +13,12 @@ namespace Diplomski.DAL.Entities
         public int Status { get; set; }
         public int TrainerId { get; set; }
         public int? ExerciserId { get; set; }
-        public int? PackageId { get; set; }
+        public int? BundleId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
 
+        public virtual Bundle? Bundle { get; set; }
         public virtual User? Exerciser { get; set; }
-        public virtual Package? Package { get; set; }
         public virtual User Trainer { get; set; } = null!;
     }
 }

@@ -14,7 +14,7 @@ create table Session
 	Status int not null,
 	TrainerId int not null,
 	ExerciserId int null,
-	PackageId int null,
+	BundleId int null,
 	CreatedAt datetime not null,
 	UpdateAt datetime not null
 )
@@ -23,12 +23,12 @@ alter table Session add constraint CK_Session_SessionNumber check(SessionNumber 
 
 alter table Session add constraint FK_Session_Trainer foreign key (TrainerId) references [User](id);
 alter table Session add constraint FK_Session_Exerciser foreign key (ExerciserId) references [User](id);
-alter table Session add constraint FK_Session_Package foreign key (PackageId) references Package(id);
+alter table Session add constraint FK_Session_Bundle foreign key (BundleId) references Bundle(id);
 
 print('---CREATE Payment---');
 create table Payment
 (
-	Id int identity not null primary key,
+		Id int identity not null primary key,
 	Price decimal not null,
 	ExerciserId int not null,
 	TrainerId int not null,

@@ -1,4 +1,4 @@
-﻿using Diplomski.BLL.DTOs.PackageDTOs;
+﻿using Diplomski.BLL.DTOs.BundleDTOs;
 using Diplomski.BLL.DTOs.UserDtos;
 
 namespace Diplomski.BLL.DTOs.SessionsDTOs;
@@ -15,8 +15,8 @@ public class SessionReadDto
     public UserReadDto? Trainer { get; set; }
     public int? ExerciserId { get; set; }
     public UserReadDto? Exerciser { get; set; }
-    public int? PackageId { get; set; }
-    public PackageReadDto? Package { get; set; }
+    public int? BundleId { get; set; }
+    public BundleReadDto? Bundle { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdateAt { get; set; }
 }
