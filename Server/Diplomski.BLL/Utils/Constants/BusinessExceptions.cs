@@ -101,6 +101,9 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException UserDoesNotHaveCustomerId =>
             throw new BusinessException("Provided user does not have a customerId", HttpStatusCode.BadRequest);
+        
+        public static BusinessException PaymentFailed =>
+            throw new BusinessException("Payment has failed", HttpStatusCode.InternalServerError);
 
         #endregion
     }

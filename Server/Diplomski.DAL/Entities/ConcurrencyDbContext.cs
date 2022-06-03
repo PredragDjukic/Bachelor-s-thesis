@@ -18,6 +18,7 @@ namespace Diplomski.DAL.Entities
 
         public virtual DbSet<Bundle> Bundle { get; set; } = null!;
         public virtual DbSet<Package> Package { get; set; } = null!;
+        public virtual DbSet<Payment> Payment { get; set; } = null!;
         public virtual DbSet<Session> Session { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
 
@@ -53,6 +54,27 @@ namespace Diplomski.DAL.Entities
                 entity.Property(e => e.Price).HasColumnType("decimal(12, 2)");
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<Payment>(entity =>
+            {
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
+
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Exerciser)
+                    .WithMany(p => p.PaymentExerciser)
+                    .HasForeignKey(d => d.ExerciserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payment_Exerciser");
+
+                entity.HasOne(d => d.Trainer)
+                    .WithMany(p => p.PaymentTrainer)
+                    .HasForeignKey(d => d.TrainerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payment_Trainer");
             });
 
             modelBuilder.Entity<Session>(entity =>

@@ -173,6 +173,13 @@ namespace Diplomski.BLL.Services
             return card.ToReadDto();
         }
 
+        public void DeleteCard(int userId, string cardId)
+        {
+            User? exerciser = this.GetExerciser(userId);
+            
+            _paymentService.DeleteCard(exerciser, cardId);
+        }
+
         public UserReadDto GetTrainerRead(int id)
         {
             User? trainer = _repo.GetTrainer(id);

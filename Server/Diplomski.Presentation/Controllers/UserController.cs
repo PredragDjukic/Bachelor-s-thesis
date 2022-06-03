@@ -60,6 +60,16 @@ public class UserController : BaseController
         return Ok(result);
     }
     
+    [HttpDelete]
+    [Authorize]
+    [Route(Routes.UserCardId)]
+    public ActionResult DeleteCard([FromRoute] string cardId)
+    {
+        _service.DeleteCard(this.CurrentUserId, cardId);
+
+        return Ok();
+    }
+    
     [HttpGet]
     [Authorize]
     [Route(Routes.UserDefaultCard)]

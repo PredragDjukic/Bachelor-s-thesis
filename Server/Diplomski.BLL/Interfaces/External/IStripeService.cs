@@ -10,4 +10,6 @@ public interface IStripeService
     void AddCard(string customerId, string paymentMethod);
     StripeList<Card> GetCards(string customerId);
     Card GetCard(string customerId, string cardId);
+    void DeleteCard(string customerId, string cardId);
+    void CreatePaymentIntent(string customerId, long price);
 }

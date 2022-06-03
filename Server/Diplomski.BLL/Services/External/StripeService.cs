@@ -69,4 +69,30 @@ public class StripeService : IStripeService
 
         return card;
     }
+
+    public void DeleteCard(string customerId, string cardId)
+    {
+        CardService service = new CardService();
+
+        service.Delete(customerId, cardId);
+    }
+
+    public void CreatePaymentIntent(string customerId, long price)
+    {
+        PaymentIntentCreateOptions options = new PaymentIntentCreateOptions()
+        {
+            Amount = price,
+            Customer = customerId,
+            Currency = "usd",
+            PaymentMethodTypes = new List<string>
+            {
+                "card",
+            },
+            Confirm = true
+        };
+
+        PaymentIntentService service = new PaymentIntentService();
+
+        service.Create(options);
+    }
 }

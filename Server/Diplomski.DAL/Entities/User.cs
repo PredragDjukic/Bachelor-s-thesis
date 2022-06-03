@@ -8,6 +8,8 @@ namespace Diplomski.DAL.Entities
         public User()
         {
             Bundle = new HashSet<Bundle>();
+            PaymentExerciser = new HashSet<Payment>();
+            PaymentTrainer = new HashSet<Payment>();
             SessionExerciser = new HashSet<Session>();
             SessionTrainer = new HashSet<Session>();
         }
@@ -33,6 +35,8 @@ namespace Diplomski.DAL.Entities
         public string? CustomerId { get; set; }
 
         public virtual ICollection<Bundle> Bundle { get; set; }
+        public virtual ICollection<Payment> PaymentExerciser { get; set; }
+        public virtual ICollection<Payment> PaymentTrainer { get; set; }
         public virtual ICollection<Session> SessionExerciser { get; set; }
         public virtual ICollection<Session> SessionTrainer { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using Diplomski.BLL.DTOs.BundleDTOs;
+using Diplomski.BLL.DTOs.PaymentDTOs;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
@@ -12,13 +13,15 @@ public class BundleService : IBundleService
     private readonly IBundleRepository _repo;
     private readonly IUserService _userService;
     private readonly IPackageService _packageService;
+    private readonly IPaymentService _paymentService;
     
     
-    public BundleService(IBundleRepository repo, IUserService userService, IPackageService packageService)
+    public BundleService(IBundleRepository repo, IUserService userService, IPackageService packageService, IPaymentService paymentService)
     {
         _repo = repo;
         _userService = userService;
         _packageService = packageService;
+        _paymentService = paymentService;
     }
 
 
@@ -60,7 +63,7 @@ public class BundleService : IBundleService
         User exerciser = _userService.GetExerciser(exerciserId);
         Package package = _packageService.Get(dto.PackageId);
 
-        ///TODO: Payment
+        this.BuyBundle(exerciser, package);
         
         Bundle bundle = new Bundle()
         {
@@ -73,6 +76,22 @@ public class BundleService : IBundleService
         Bundle result = _repo.Create(bundle);
 
         return result.ToReadDto();
+    }
+
+    private void BuyBundle(User exerciser, Package package)
+    {
+        if (exerciser.CustomerId == null)
+            throw BusinessExceptions.UserDoesNotHaveCustomerId;
+
+        PaymentCreateDto paymentCreatDto = new PaymentCreateDto()
+        {
+            TrainerId = package.TrainerId,
+            ExerciserId = exerciser.Id,
+            Price = package.Price,
+            CustomerId = exerciser.CustomerId
+        };
+
+        _paymentService.CreatePayment(paymentCreatDto);
     }
 
     public void Delete(int userId, int id)
