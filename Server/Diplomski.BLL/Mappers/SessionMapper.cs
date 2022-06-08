@@ -18,7 +18,7 @@ internal static class SessionMapper
         BundleId = session.BundleId,
         Bundle = session.Bundle != null ? session.Bundle.ToReadDto() : null,
         TrainerId = session.TrainerId,
-        Trainer = session.Trainer.ToReadDto(),
+        Trainer = session.Trainer != null ? session.Trainer.ToReadDto() : null,
         CreatedAt = session.CreatedAt,
         UpdateAt = session.UpdateAt
     };

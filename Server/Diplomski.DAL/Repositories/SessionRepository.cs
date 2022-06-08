@@ -37,6 +37,7 @@ public class SessionRepository : ISessionRepository
         entity.UpdateAt = DateTime.UtcNow;
 
         _context.Session.Update(entity);
+        _context.SaveChanges();
 
         return entity;
     }
