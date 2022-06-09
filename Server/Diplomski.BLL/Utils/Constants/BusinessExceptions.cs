@@ -38,6 +38,12 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException UsersAgeException =>
             throw new BusinessException("User must be older then 14 years", HttpStatusCode.BadRequest);
+        
+        public static BusinessException UserCanNotBeDeletedReservedOrCompletedSessions =>
+            throw new BusinessException("User can not be deleted while sessions are reserved or completed", HttpStatusCode.BadRequest);
+        
+        public static BusinessException UserCanNotBeDeletedActiveBundles =>
+            throw new BusinessException("User can not be deleted while bundles are active", HttpStatusCode.BadRequest);
         #endregion
 
         #region Auth

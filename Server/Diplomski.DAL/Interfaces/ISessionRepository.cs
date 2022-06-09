@@ -8,4 +8,6 @@ public interface ISessionRepository
     Session? Get(int id);
     Session Update(Session entity);
     bool DoesSessionOverlap(int trainerId, DateTime start, DateTime end);
+    bool DoesReservedOrCompletedExistByTrainer(int trainerId);
+    bool DoesReservedOrCompletedExistByExerciser(int exerciserId);
 }

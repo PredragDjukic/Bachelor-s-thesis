@@ -24,4 +24,14 @@ public class PaymentRepository : IPaymentRepository
 
         return entity;
     }
+
+    public bool DoesPaymentsExistsForTrainer(int trainerId)
+    {
+        return _context.Payment.Any(e => e.TrainerId == trainerId);
+    }
+
+    public bool DoesPaymentsExistsForExerciser(int exerciserId)
+    {
+        return _context.Payment.Any(e => e.ExerciserId == exerciserId);
+    }
 }

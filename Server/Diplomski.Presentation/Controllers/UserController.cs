@@ -40,6 +40,16 @@ public class UserController : BaseController
         return Ok(user);
     }
 
+    [HttpPatch]
+    [Authorize]
+    [Route(Routes.User)]
+    public ActionResult Update([FromBody] UserUpdateDto dto)
+    {
+        var result = _service.Update(this.CurrentUserId, dto);
+
+        return Ok(result);
+    }
+
     [HttpPost]
     [Authorize]
     [Route(Routes.UserCard)]

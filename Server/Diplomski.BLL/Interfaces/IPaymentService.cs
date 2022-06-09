@@ -14,4 +14,6 @@ public interface IPaymentService
     Card GetDefault(User user);
     void DeleteCard(User user, string cardId);
     void CreatePayment(PaymentCreateDto dto);
+    bool DoesPaymentsExistsForTrainer(int trainerId);
+    bool DoesPaymentsExistsForExerciser(int exerciserId);
 }

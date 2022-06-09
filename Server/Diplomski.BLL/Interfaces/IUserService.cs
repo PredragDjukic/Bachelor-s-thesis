@@ -22,6 +22,7 @@ namespace Diplomski.BLL.Interfaces
         IEnumerable<CardReadDto> GetUserCards(int id);
         CardReadDto GetDefaultCard(int id);
         CardReadDto SetUpDefaultCard(int id, string cardId);
+        UserReadDto Update(int id, UserUpdateDto dto);
         void DeleteCard(int userId, string cardId);
     }
 }

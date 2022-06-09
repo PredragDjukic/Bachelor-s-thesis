@@ -23,4 +23,14 @@ internal static class UserMapper
         CreatedAt = user.CreatedAt,
         UpdatedAt = user.UpdatedAt
     };
+
+    internal static void UpdateUser(this User user, UserUpdateDto dto)
+    {
+        user.FirstName = dto.FirstName;
+        user.LastName = dto.LastName;
+        user.Username = dto.Username;
+        user.PhoneNumber = dto.PhoneNumber;
+        user.Nationality = dto.Nationality;
+        user.DateOfBirth = dto.DateOfBirth;
+    }
 }

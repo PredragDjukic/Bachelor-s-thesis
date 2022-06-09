@@ -7,6 +7,7 @@ using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
 using Diplomski.BLL.Utils.Models;
 using Diplomski.DAL.Entities;
+using Diplomski.DAL.Enums;
 using Diplomski.DAL.Interfaces;
 using Stripe;
 
@@ -15,21 +16,28 @@ namespace Diplomski.BLL.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
+        private readonly ISessionRepository _sessionRepository;
+        private readonly IBundleRepository _bundleRepository;
 
         private readonly IEmailService _emailService;
         private readonly IPaymentService _paymentService;
 
 
+
         public UserService(
             IUserRepository repo,
             IEmailService emailService,
-            IPaymentService paymentService
+            IPaymentService paymentService, 
+            ISessionRepository sessionRepository, 
+            IBundleRepository bundleRepository
         )
         {
             this._repo = repo;
+            this._sessionRepository = sessionRepository;
+            this._bundleRepository = bundleRepository;
 
             this._emailService = emailService;
-            _paymentService = paymentService;
+            this._paymentService = paymentService;
         }
 
 
@@ -173,11 +181,69 @@ namespace Diplomski.BLL.Services
             return card.ToReadDto();
         }
 
+        public UserReadDto Update(int id, UserUpdateDto dto)
+        {
+            User user = this.Get(id);
+            
+            user.UpdateUser(dto);
+
+            user = _repo.Update(user);
+
+            return user.ToReadDto();
+        }
+
         public void DeleteCard(int userId, string cardId)
         {
             User? exerciser = this.GetExerciser(userId);
             
             _paymentService.DeleteCard(exerciser, cardId);
+        }
+
+        public void Delete(int userId)
+        {
+            User user = this.Get(userId);
+
+            if (user.UserType == (int)UserType.Trainer)
+            {
+                this.DeleteTrainer(user);
+            }
+            else if (user.UserType == (int)UserType.Exerciser)
+            {
+                this.DeleteExerciser(user);
+            }
+        }
+
+        private void DeleteTrainer(User user)
+        {
+            bool paymentExists = _paymentService.DoesPaymentsExistsForTrainer(user.Id);
+            bool reservedOrCompletedSessionExists = _sessionRepository.DoesReservedOrCompletedExistByTrainer(user.Id);
+
+            if (reservedOrCompletedSessionExists)
+                throw BusinessExceptions.UserCanNotBeDeletedReservedOrCompletedSessions;
+
+            bool activeBundlesExists = _bundleRepository.DoesActiveExistByTrainer(user.Id);
+            
+            if (activeBundlesExists)
+                throw BusinessExceptions.UserCanNotBeDeletedActiveBundles;
+            //Delete available sessions
+            //if paymentExists then can not delete only logically
+            
+        }
+
+        private void DeleteExerciser(User user)
+        {
+            bool paymentExists = _paymentService.DoesPaymentsExistsForExerciser(user.Id);
+            bool reservedOrCompletedSessionExists = _sessionRepository.DoesReservedOrCompletedExistByExerciser(user.Id);
+            
+            if (reservedOrCompletedSessionExists)
+                throw BusinessExceptions.UserCanNotBeDeletedReservedOrCompletedSessions;
+                
+            bool activeBundlesExists = _bundleRepository.DoesActiveExistByTrainer(user.Id);
+            
+            if (activeBundlesExists)
+                throw BusinessExceptions.UserCanNotBeDeletedActiveBundles;
+            
+            //if paymentExists then can not delete only logically
         }
 
         public UserReadDto GetTrainerRead(int id)
@@ -236,12 +302,6 @@ namespace Diplomski.BLL.Services
 
             return user;
         }
-        
-        public void Delete(int userId)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
 

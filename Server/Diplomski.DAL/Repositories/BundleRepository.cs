@@ -70,4 +70,18 @@ public class BundleRepository : IBundleRepository
 
         _context.SaveChanges();
     }
+
+    public bool DoesActiveExistByTrainer(int trainerId)
+    {
+        return _context.Bundle
+            .Include(e => e.Package)
+            .Any(e => e.Package.TrainerId == trainerId && (bool)e.IsActive);
+    }
+
+    public bool DoesActiveExistByExerciser(int exerciserId)
+    {
+        return _context.Bundle
+            .Include(e => e.Package)
+            .Any(e => e.ExerciserId == exerciserId && (bool)e.IsActive);
+    }
 }

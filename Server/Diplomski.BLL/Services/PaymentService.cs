@@ -118,4 +118,14 @@ public class PaymentService : IPaymentService
 
         _repository.Create(payment);
     }
+
+    public bool DoesPaymentsExistsForTrainer(int trainerId)
+    {
+        return _repository.DoesPaymentsExistsForTrainer(trainerId);
+    }
+
+    public bool DoesPaymentsExistsForExerciser(int exerciserId)
+    {
+        return _repository.DoesPaymentsExistsForExerciser(exerciserId);
+    }
 }
