@@ -12,6 +12,8 @@
         
         //user
         public const string User = Base + "user/";
+        public const string Trainer = User + "trainer/";
+        public const string UserId = User + "{id}/";
         public const string LoggedInData = User + "get-data/";
         public const string ResendSecretCode = User + "resend-code/";
         public const string UserCard = User + "card/";

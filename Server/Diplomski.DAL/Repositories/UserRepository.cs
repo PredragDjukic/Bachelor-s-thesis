@@ -81,5 +81,15 @@ namespace Diplomski.DAL.Repositories
             _context.User.Remove(entity);
             _context.SaveChanges();
         }
+
+        public IQueryable<User> GetAllTrainers()
+        {
+            var entities = _context.User
+                .Where(e => e.IsDeleted == false &&
+                            e.UserType == (int)UserType.Trainer
+                        );
+
+            return entities;
+        }
     }
 }

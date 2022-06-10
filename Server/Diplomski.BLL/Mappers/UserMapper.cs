@@ -24,6 +24,9 @@ internal static class UserMapper
         UpdatedAt = user.UpdatedAt
     };
 
+    internal static IEnumerable<UserReadDto> ToReadDtos(this IEnumerable<User> users) =>
+        users.Select(e => e.ToReadDto());
+
     internal static void UpdateUser(this User user, UserUpdateDto dto)
     {
         user.FirstName = dto.FirstName;

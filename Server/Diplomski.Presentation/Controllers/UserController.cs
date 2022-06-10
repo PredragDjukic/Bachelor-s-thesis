@@ -109,4 +109,24 @@ public class UserController : BaseController
 
         return Ok();
     }
+    
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.UserId)]
+    public ActionResult GetUserById([FromRoute]int id)
+    {
+        var result = _service.GetRead(id);
+
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.Trainer)]
+    public ActionResult GetUserById()
+    {
+        var result = _service.GetAllTrainers();
+
+        return Ok(result);
+    }
 }

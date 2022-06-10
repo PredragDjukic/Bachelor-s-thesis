@@ -199,6 +199,13 @@ namespace Diplomski.BLL.Services
             _paymentService.DeleteCard(exerciser, cardId);
         }
 
+        public IEnumerable<UserReadDto> GetAllTrainers()
+        {
+            IEnumerable<User> trainers = _repo.GetAllTrainers();
+
+            return trainers.ToReadDtos();
+        }
+
         public void Delete(int userId)
         {
             User user = this.Get(userId);

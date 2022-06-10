@@ -13,5 +13,6 @@ namespace Diplomski.DAL.Interfaces
         bool CheckIfExistsByPhoneNumber(string phoneNumber);
         User Update(User entity);
         void Delete(User entity);
+        IQueryable<User> GetAllTrainers();
     }
 }
