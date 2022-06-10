@@ -38,7 +38,7 @@ go
 
 alter table Bundle add constraint CK_SessionsLeft check (SessionsLeft >= 0)
 
-alter table Bundle add constraint DF_Bundle_IsActive default 1 for IsActive;
+--alter table Bundle add constraint DF_Bundle_IsActive default 1 for IsActive;
 
 --ON DELTE NO ACTION (Case if trainer deletes his package, but exercisers still have active bundle)
 alter table Bundle add constraint FK_Bundle_Package foreign key (PackageId) references Package(Id) on delete no action;

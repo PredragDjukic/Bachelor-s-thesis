@@ -28,10 +28,6 @@ namespace Diplomski.DAL.Entities
             {
                 entity.Property(e => e.CreatedAt).HasColumnType("date");
 
-                entity.Property(e => e.IsActive)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.UpdatedAt).HasColumnType("date");
 
                 entity.HasOne(d => d.Exerciser)

@@ -10,4 +10,5 @@ public interface ISessionRepository
     bool DoesSessionOverlap(int trainerId, DateTime start, DateTime end);
     bool DoesReservedOrCompletedExistByTrainer(int trainerId);
     bool DoesReservedOrCompletedExistByExerciser(int exerciserId);
+    void DeleteAvailableSessionsByTrainer(int trainerId);
 }

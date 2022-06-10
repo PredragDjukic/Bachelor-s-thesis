@@ -33,6 +33,7 @@ namespace Diplomski.DAL.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string? CustomerId { get; set; }
+        public bool IsDeleted { get; set; }
 
         public virtual ICollection<Bundle> Bundle { get; set; }
         public virtual ICollection<Payment> PaymentExerciser { get; set; }

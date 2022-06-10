@@ -225,9 +225,10 @@ namespace Diplomski.BLL.Services
             
             if (activeBundlesExists)
                 throw BusinessExceptions.UserCanNotBeDeletedActiveBundles;
-            //Delete available sessions
-            //if paymentExists then can not delete only logically
-            
+
+            _sessionRepository.DeleteAvailableSessionsByTrainer(user.Id);
+
+            this.DeleteUser(paymentExists, user);
         }
 
         private void DeleteExerciser(User user)
@@ -242,8 +243,20 @@ namespace Diplomski.BLL.Services
             
             if (activeBundlesExists)
                 throw BusinessExceptions.UserCanNotBeDeletedActiveBundles;
-            
-            //if paymentExists then can not delete only logically
+
+            this.DeleteUser(paymentExists, user);
+        }
+
+        private void DeleteUser(bool paymentExists, User user)
+        {
+            if (paymentExists)
+            {
+                user.IsDeleted = true;
+
+                _repo.Update(user);
+            }
+
+            _repo.Delete(user);
         }
 
         public UserReadDto GetTrainerRead(int id)

@@ -69,4 +69,12 @@ public class SessionRepository : ISessionRepository
         return _context.Session.Any(e => e.ExerciserId == exerciserId &&
                                          e.Status != (int)SessionStatus.Available);
     }
+
+    public void DeleteAvailableSessionsByTrainer(int trainerId)
+    {
+        var sessions =
+            _context.Session.Where(e => e.TrainerId == trainerId && e.Status == (int)SessionStatus.Available);
+        
+        _context.Session.RemoveRange(sessions);
+    }
 }

@@ -14,7 +14,7 @@ namespace Diplomski.DAL.Entities
         public int SessionsLeft { get; set; }
         public int PackageId { get; set; }
         public int ExerciserId { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

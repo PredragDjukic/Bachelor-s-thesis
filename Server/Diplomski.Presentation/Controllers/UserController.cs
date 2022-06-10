@@ -99,4 +99,14 @@ public class UserController : BaseController
 
         return Ok(result);
     }
+
+    [HttpDelete]
+    [Authorize]
+    [Route(Routes.User)]
+    public ActionResult DeleteUser()
+    {
+        _service.Delete(this.CurrentUserId);
+
+        return Ok();
+    }
 }
