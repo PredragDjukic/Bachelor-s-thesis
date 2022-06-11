@@ -29,7 +29,7 @@ public class SessionController : BaseController
 
     [HttpPatch]
     [Authorize]
-    [Route(Routes.Sesssion)]
+    [Route(Routes.Reserve)]
     public ActionResult Reserve([FromBody] SessionReserveDto dto)
     {
         SessionReadDto result = _service.Reserve(this.CurrentUserId, dto);
@@ -37,4 +37,13 @@ public class SessionController : BaseController
         return Ok(result);
     }
     
+    [HttpPatch]
+    [Authorize]
+    [Route(Routes.Cancel)]
+    public ActionResult Reserve([FromRoute] int id)
+    {
+        SessionReadDto result = _service.Cancel(this.CurrentUserId, id);
+
+        return Ok(result);
+    }
 }

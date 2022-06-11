@@ -1,11 +1,12 @@
 ﻿using Diplomski.BLL.DTOs.SessionsDTOs;
-using Diplomski.BLL.Enums;
 using Diplomski.BLL.Exceptions;
 using Diplomski.BLL.Interfaces;
 using Diplomski.BLL.Mappers;
 using Diplomski.BLL.Utils.Constants;
 using Diplomski.DAL.Entities;
+using Diplomski.DAL.Enums;
 using Diplomski.DAL.Interfaces;
+using SessionStatus = Diplomski.BLL.Enums.SessionStatus;
 
 namespace Diplomski.BLL.Services;
 
@@ -16,16 +17,20 @@ public class SessionService : ISessionService
     private readonly IUserService _userService;
     private readonly IBundleService _bundleService;
 
+    private readonly IBundleRepository _bundleRepository;
+
     
     public SessionService(
         ISessionRepository repository,
         IUserService userService,
-        IBundleService bundleService
+        IBundleService bundleService, 
+        IBundleRepository bundleRepository
     )
     {
         _repository = repository;
         _userService = userService;
         _bundleService = bundleService;
+        _bundleRepository = bundleRepository;
     }
 
 
@@ -69,7 +74,6 @@ public class SessionService : ISessionService
         User exerciser = _userService.GetExerciser(exerciserId);
 
         Bundle bundle = this.GetAndCheckBundle(exerciser.Id, dto.BundleId);
-
         Session session = this.Get(dto.SessionId);
 
         session.ExerciserId = exerciser.Id;
@@ -77,9 +81,52 @@ public class SessionService : ISessionService
         session.SessionNumber = bundle.Package.NumberOfSessions - bundle.SessionsLeft + 1;
         session.Status = Convert.ToInt32(SessionStatus.Reserved);
 
+        bundle.SessionsLeft--;
+
+        _bundleRepository.Update(bundle);
+
         session = _repository.Update(session);
 
         return session.ToReadDto();
+    }
+
+    public SessionReadDto Cancel(int userId, int sessionId)
+    {
+        Session session = this.Get(sessionId);
+
+        if (session.Status != (int)SessionStatus.Reserved)
+            throw BusinessExceptions.CanNotCancelSession;
+
+        User user = this.GetUserForSession(userId, session);
+
+        Bundle bundle = _bundleService.Get((int)session.BundleId);
+
+        bundle.SessionsLeft++;
+
+        _bundleRepository.Update(bundle);
+        
+        session.SessionNumber = null;
+        session.Status = (int)SessionStatus.Available;
+        session.ExerciserId = null;
+        session.BundleId = null;
+
+        session = _repository.Update(session);
+
+        return session.ToReadDto();
+    }
+
+    private User GetUserForSession(int userId, Session session)
+    {
+        User user = _userService.Get(userId);
+
+        if (user.UserType == (int)UserType.Trainer)
+            if (session.TrainerId != user.Id)
+                throw BusinessExceptions.CanNotCancelSession;
+        else
+        if (session.ExerciserId != user.Id)
+                throw BusinessExceptions.CanNotCancelSession;
+
+        return user;
     }
 
     private Bundle GetAndCheckBundle(int exerciserId, int bundleId)

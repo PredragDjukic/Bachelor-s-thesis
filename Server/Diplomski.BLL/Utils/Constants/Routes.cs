@@ -33,5 +33,7 @@
         
         //Sessions
         public const string Sesssion = Base + "session/";
+        public const string Reserve = Sesssion + "reserve/";
+        public const string Cancel = Sesssion + "cancel/{id}/";
     }
 }

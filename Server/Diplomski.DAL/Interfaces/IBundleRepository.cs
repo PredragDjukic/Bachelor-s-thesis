@@ -12,4 +12,5 @@ public interface IBundleRepository
     void Delete(Bundle entity);
     bool DoesActiveExistByTrainer(int trainerId);
     bool DoesActiveExistByExerciser(int exerciserId);
+    Bundle Update(Bundle bundle);
 }

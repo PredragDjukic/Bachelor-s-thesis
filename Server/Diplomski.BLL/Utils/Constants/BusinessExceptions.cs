@@ -91,6 +91,7 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException BundleIsInactive =>
             throw new BusinessException("Bundle is inactive", HttpStatusCode.BadRequest);
         
+        
         #endregion
         
         #region Session
@@ -103,6 +104,9 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException SessionDoesNotExist =>
             throw new BusinessException("Session with provided id does not exists", HttpStatusCode.NotFound);
+        
+        public static BusinessException CanNotCancelSession =>
+            throw new BusinessException("Session can not be canceled", HttpStatusCode.BadRequest);
         
         #endregion
 

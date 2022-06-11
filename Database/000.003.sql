@@ -19,7 +19,7 @@ create table Session
 	UpdateAt datetime not null
 )
 
-alter table Session add constraint CK_Session_SessionNumber check(SessionNumber > 0 and SessionNumber <= 30);
+--alter table Session add constraint CK_Session_SessionNumber check(SessionNumber > 0 and SessionNumber <= 30);
 
 alter table Session add constraint FK_Session_Trainer foreign key (TrainerId) references [User](id);
 alter table Session add constraint FK_Session_Exerciser foreign key (ExerciserId) references [User](id);

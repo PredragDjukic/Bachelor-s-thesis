@@ -84,4 +84,14 @@ public class BundleRepository : IBundleRepository
             .Include(e => e.Package)
             .Any(e => e.ExerciserId == exerciserId && (bool)e.IsActive);
     }
+
+    public Bundle Update(Bundle bundle)
+    {
+        bundle.UpdatedAt = DateTime.UtcNow;
+
+        _context.Bundle.Update(bundle);
+        _context.SaveChanges();
+
+        return bundle;
+    }
 }

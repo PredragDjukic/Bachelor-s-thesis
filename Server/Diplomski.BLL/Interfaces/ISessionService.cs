@@ -6,4 +6,5 @@ public interface ISessionService
 {
     SessionReadDto OpenSession(int trainerId, SessionCreateDto dto);
     SessionReadDto Reserve(int exerciserId, SessionReserveDto dto);
+    SessionReadDto Cancel(int userId, int sessionId);
 }
