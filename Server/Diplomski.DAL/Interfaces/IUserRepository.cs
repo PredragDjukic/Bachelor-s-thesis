@@ -14,5 +14,7 @@ namespace Diplomski.DAL.Interfaces
         User Update(User entity);
         void Delete(User entity);
         IQueryable<User> GetAllTrainers();
+        IQueryable<User> SearchTrainerByFullName(string fullName);
+        IQueryable<User> SearchTrainerByUsername(string username);
     }
 }

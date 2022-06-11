@@ -129,4 +129,24 @@ public class UserController : BaseController
 
         return Ok(result);
     }
+    
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.TrainerFullName)]
+    public ActionResult TrainerSearchByFullName([FromQuery] string fullName)
+    {
+        var result = _service.SearchTrainerByFullName(fullName);
+
+        return Ok(result);
+    }
+    
+    [HttpGet]
+    [Authorize]
+    [Route(Routes.TrainerUsername)]
+    public ActionResult TrainerSearchByUsername([FromQuery] string username)
+    {
+        var result = _service.SearchTrainerByUsername(username);
+
+        return Ok(result);
+    }
 }

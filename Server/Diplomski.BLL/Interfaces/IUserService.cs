@@ -25,5 +25,7 @@ namespace Diplomski.BLL.Interfaces
         UserReadDto Update(int id, UserUpdateDto dto);
         void DeleteCard(int userId, string cardId);
         IEnumerable<UserReadDto> GetAllTrainers();
+        IEnumerable<UserReadDto> SearchTrainerByFullName(string fullName);
+        IEnumerable<UserReadDto> SearchTrainerByUsername(string username);
     }
 }

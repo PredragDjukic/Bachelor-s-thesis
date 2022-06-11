@@ -91,5 +91,21 @@ namespace Diplomski.DAL.Repositories
 
             return entities;
         }
+
+        public IQueryable<User> SearchTrainerByFullName(string fullName)
+        {
+            var entities = _context.User
+                .Where(e => (e.FirstName + ' ' + e.LastName).Contains(fullName));
+
+            return entities;
+        }
+
+        public IQueryable<User> SearchTrainerByUsername(string username)
+        {
+            var entities = _context.User
+                .Where(e => e.Username.Contains(username));
+
+            return entities;
+        }
     }
 }

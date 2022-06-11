@@ -206,6 +206,20 @@ namespace Diplomski.BLL.Services
             return trainers.ToReadDtos();
         }
 
+        public IEnumerable<UserReadDto> SearchTrainerByFullName(string fullName)
+        {
+            IEnumerable<User> trainers = _repo.SearchTrainerByFullName(fullName);
+
+            return trainers.ToReadDtos();
+        }
+
+        public IEnumerable<UserReadDto> SearchTrainerByUsername(string username)
+        {
+            IEnumerable<User> trainers = _repo.SearchTrainerByUsername(username);
+
+            return trainers.ToReadDtos();
+        }
+
         public void Delete(int userId)
         {
             User user = this.Get(userId);
