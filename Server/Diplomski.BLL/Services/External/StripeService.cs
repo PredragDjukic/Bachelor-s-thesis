@@ -1,4 +1,5 @@
 ﻿using Diplomski.BLL.Interfaces.External;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.BLL.Utils.Models;
 using Stripe;
 
@@ -6,7 +7,7 @@ namespace Diplomski.BLL.Services.External;
 
 public class StripeService : IStripeService
 {
-    string? apiKey = Environment.GetEnvironmentVariable("StripeApiKeyDiplomski", EnvironmentVariableTarget.Machine);
+    string? apiKey = Environment.GetEnvironmentVariable(Keys.StripeApiKeyName, EnvironmentVariableTarget.Machine);
 
 
     public StripeService()

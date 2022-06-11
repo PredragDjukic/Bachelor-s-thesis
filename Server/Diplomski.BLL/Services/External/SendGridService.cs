@@ -1,4 +1,5 @@
 ﻿using Diplomski.BLL.Interfaces.External;
+using Diplomski.BLL.Utils.Constants;
 using Diplomski.BLL.Utils.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -9,7 +10,7 @@ namespace Diplomski.BLL.Services.External
     {
         public async Task Execute(MailModel model)
         {
-            string? apiKey = Environment.GetEnvironmentVariable("SendGridApiKeyDiplomski", EnvironmentVariableTarget.Machine);
+            string? apiKey = Environment.GetEnvironmentVariable(Keys.SendGridApiKeyName, EnvironmentVariableTarget.Machine);
             SendGridClient client = new SendGridClient(apiKey);
 
             EmailAddress from = new EmailAddress(model.Sender);
