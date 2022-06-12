@@ -90,8 +90,7 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException BundleIsInactive =>
             throw new BusinessException("Bundle is inactive", HttpStatusCode.BadRequest);
-        
-        
+
         #endregion
         
         #region Session
@@ -110,7 +109,7 @@ namespace Diplomski.BLL.Utils.Constants
         
         public static BusinessException SessionNotReserved =>
             throw new BusinessException("Session is not reserved", HttpStatusCode.BadRequest);
-        
+
         #endregion
 
         #region Payments
@@ -124,6 +123,15 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException PaymentFailed =>
             throw new BusinessException("Payment has failed", HttpStatusCode.InternalServerError);
 
+        #endregion
+        
+        #region Rate
+                
+        public static BusinessException SessionIsNotFinishedForRate =>
+            throw new BusinessException("Can only rate after finished session", HttpStatusCode.BadRequest);
+        
+        public static BusinessException RateDoesNotExist =>
+            throw new BusinessException("Rate does not exist", HttpStatusCode.BadRequest);
         #endregion
     }
 }

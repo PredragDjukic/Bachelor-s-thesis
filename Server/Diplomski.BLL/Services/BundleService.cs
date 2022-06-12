@@ -101,8 +101,6 @@ public class BundleService : IBundleService
 
         if (bundle.ExerciserId != exerciser.Id)
             throw BusinessExceptions.CanNotDeleteBundleFromAnother;
-        
-        ///TODO: Check foreign key when sessions are implemented
 
         _repo.Delete(bundle);
     }

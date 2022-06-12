@@ -166,7 +166,7 @@ public class SessionService : ISessionService
         return bundle;
     }
 
-    private Session Get(int id)
+    public Session Get(int id)
     {
         Session? session = _repository.Get(id);
 

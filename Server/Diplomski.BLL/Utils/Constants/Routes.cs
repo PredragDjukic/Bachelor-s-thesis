@@ -37,5 +37,10 @@
         public const string Sesssion = Base + "session/";
         public const string Reserve = Sesssion + "reserve/";
         public const string Cancel = Sesssion + "cancel/{id}/";
+        
+        //Rates
+        public const string Rate = Base + "rate/";
+        public const string RateByTrainer = Rate + "trainer/{trainerId}";
+        public const string RateBySession = Rate + "session/{sessionId}";
     }
 }

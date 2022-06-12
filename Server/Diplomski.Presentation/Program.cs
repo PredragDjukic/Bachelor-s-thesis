@@ -80,8 +80,6 @@ builder.Services.AddAuthorization(options =>
     });
 });
 
-//TODO: Move DI to separate file
-
 //Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -90,6 +88,7 @@ builder.Services.AddScoped<IPackageService, PackageService>();
 builder.Services.AddScoped<IBundleService, BundleService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IRateService, RateService>();
 
 //ExternalServices
 builder.Services.AddScoped<ISendGridService, SendGridService>();
@@ -104,6 +103,7 @@ builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IBundleRepository, BundleRepository>();
 builder.Services.AddScoped<ISessionRepository, SessionRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IRateRepository, RateRepository>();
 
 var app = builder.Build();
 
