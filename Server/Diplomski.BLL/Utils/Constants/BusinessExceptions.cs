@@ -108,6 +108,9 @@ namespace Diplomski.BLL.Utils.Constants
         public static BusinessException CanNotCancelSession =>
             throw new BusinessException("Session can not be canceled", HttpStatusCode.BadRequest);
         
+        public static BusinessException SessionNotReserved =>
+            throw new BusinessException("Session is not reserved", HttpStatusCode.BadRequest);
+        
         #endregion
 
         #region Payments

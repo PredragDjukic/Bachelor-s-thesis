@@ -87,7 +87,31 @@ public class SessionService : ISessionService
 
         session = _repository.Update(session);
 
+        this.SetUpTaskForFinishedSession(session);
+
         return session.ToReadDto();
+    }
+
+    private void SetUpTaskForFinishedSession(Session session)
+    {
+        DateTime current = DateTime.UtcNow;
+        TimeSpan timeToGo = session.EndDateTime - current;
+        
+        Timer timer = new Timer(x =>
+        {
+            this.FinishSession(session.Id);
+        }, null, timeToGo, Timeout.InfiniteTimeSpan);
+    }
+
+    private void FinishSession(int sessionId)
+    {
+        Session session = this.Get(sessionId);
+
+        if (session.Status != (int)SessionStatus.Reserved)
+            throw BusinessExceptions.SessionNotReserved;
+
+        session.Status = (int)SessionStatus.Completed;
+        _repository.Update(session);
     }
 
     public SessionReadDto Cancel(int userId, int sessionId)
