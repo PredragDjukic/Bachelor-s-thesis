@@ -5,6 +5,11 @@ namespace Diplomski.DAL.Entities
 {
     public partial class Session
     {
+        public Session()
+        {
+            Rate = new HashSet<Rate>();
+        }
+
         public int Id { get; set; }
         public int? SessionNumber { get; set; }
         public string Location { get; set; } = null!;
@@ -20,5 +25,6 @@ namespace Diplomski.DAL.Entities
         public virtual Bundle? Bundle { get; set; }
         public virtual User? Exerciser { get; set; }
         public virtual User Trainer { get; set; } = null!;
+        public virtual ICollection<Rate> Rate { get; set; }
     }
 }

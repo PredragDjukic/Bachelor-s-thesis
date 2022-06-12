@@ -19,6 +19,7 @@ namespace Diplomski.DAL.Entities
         public virtual DbSet<Bundle> Bundle { get; set; } = null!;
         public virtual DbSet<Package> Package { get; set; } = null!;
         public virtual DbSet<Payment> Payment { get; set; } = null!;
+        public virtual DbSet<Rate> Rate { get; set; } = null!;
         public virtual DbSet<Session> Session { get; set; } = null!;
         public virtual DbSet<User> User { get; set; } = null!;
 
@@ -71,6 +72,23 @@ namespace Diplomski.DAL.Entities
                     .HasForeignKey(d => d.TrainerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Payment_Trainer");
+            });
+
+            modelBuilder.Entity<Rate>(entity =>
+            {
+                entity.Property(e => e.Comment).HasMaxLength(1000);
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.Rate1).HasColumnName("Rate");
+
+                entity.Property(e => e.UpdateAt).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Session)
+                    .WithMany(p => p.Rate)
+                    .HasForeignKey(d => d.SessionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rate_Session");
             });
 
             modelBuilder.Entity<Session>(entity =>
